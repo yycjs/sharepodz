@@ -23,8 +23,10 @@ Schema = mongoose.Schema;
 ObjectId = Schema.ObjectId;
 
 require('./models/users.js');
+require('./models/listing.js');
 
 User = mongoose.model('User');
+Listing = mongoose.model('Listing');
 
 // Configuration
 

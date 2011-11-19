@@ -1,4 +1,4 @@
-exports.listing = new Schema({
+var ListingSchema = new Schema({
 	owner: ObjectId,
 	description: {type: String},
 	title: {type: String},
@@ -16,4 +16,4 @@ exports.listing = new Schema({
 	images: []
 });
 
-mongoose.model('Listing', this.listing);
+mongoose.model('Listing', ListingSchema);
