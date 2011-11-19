@@ -12,7 +12,7 @@ var app = module.exports = express.createServer();
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'mustache');
-  app.set("view options", { layout: false })
+  //app.set("view options", { layout: false })
   app.register(".mustache", require('stache'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -31,12 +31,10 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', function (req, res) {
-  res.render("index", { layout: false,
+  res.render("index", {
+   
     locals: {
       title: "Test"
-    },
-    partials: {
-      heading: '<title>{{title}}</title>'
     }
   });
 });
