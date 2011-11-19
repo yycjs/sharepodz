@@ -10,9 +10,14 @@ var app = module.exports = express.createServer();
 
 // Mongoose Dependencies
 mongoose = require('mongoose');
+mongooseAuth = require('mongoose-auth');
 mongoose.connect(config.connection);
 Schema = mongoose.Schema;
 ObjectId = Schema.ObjectId;
+
+require('./models/user.js');
+
+User = mongoose.model('User');
 
 // Configuration
 
