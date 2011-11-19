@@ -16,7 +16,7 @@
 	}
     , "dependencies": {
         "express": ">=2.3.11"
-        , "mu": ">=0.5.0"
+        , "stache": ">=0.3.0"
     	, "mongoose": ">=2.3.9"
     	, "mongoose-types": ">=1.0.3"
     	, "express-messages": ">=0.0.1"
