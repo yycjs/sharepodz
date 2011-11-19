@@ -20,12 +20,16 @@
 <body>
 
 <div id="container">
-	<header>
-        <img src="#" alt="Logo" class="logo" />
-        <ul>
-            <li><a href="#">Something</a></li>
-            <li><a href="#">Something</a></li>
-            <li><a href="#">Something</a></li>
+	<header id="top">
+        <img src="img/logo.gif" alt="Logo" class="logo" />
+        <ul id="login">
+            <li class="rounded-b-left"><a href="">Sign Up</a></li>
+            <li class="login rounded-b-right"><a href="">Login</a></li>
+        </ul>
+        <ul id="menu">
+            <li><a href="#">podz</a></li>
+            <li><a href="#">host</a></li>
+            <li><a href="#">about</a></li>
         </ul>
 	</header>
 	<div id="main" role="main">
@@ -156,14 +160,7 @@
 
 	</footer>
 </div> <!--! end of #container -->
-    <script src="jquery/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
-        $(window).scroll(function() {
-            $related = $('.related');
-            var top = Math.max($(this).scrollTop(), 90);
-            $related.css('top', (top + 10) + "px");
-            console.debug($(this).scrollTop());
-        });
-    </script>
+    <script src="js/jquery/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/search_results.js" type="text/javascript"></script>
 </body>
 </html>
