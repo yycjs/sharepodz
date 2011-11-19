@@ -12,8 +12,8 @@ exports.listing = new Schema({
 	website: {type: String},
 	twitter: {type: String},
 	email: {type: String},
-	tags: [],
-	images: []
+	tags: [{type: String}],
+	images: [{type: String}]
 });
 
 mongoose.model('Listing', this.listing);
