@@ -1,4 +1,4 @@
-var UserShema = new Schema({
+var UserSchema = new Schema({
     email: {type: String},
     phoneNumber : {type: String} 
 });
@@ -39,3 +39,5 @@ UserSchema.plugin(mongooseAuth, {
         }
     }
 });
+
+mongoose.model('User', UserSchema);
