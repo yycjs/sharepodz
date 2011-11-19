@@ -19,6 +19,14 @@ app.post('/listing/create', function(req, res, next){
 	});
 });
 
+app.get('/listing/search', function(req, res, next) {
+    Listing.find({}, function(err, listings) {
+        res.render('listing/results', {
+            locals: {results: listings}
+        });
+    });
+});
+
 app.get('/listing/:id', function(req, res, next){
 	Listing.findById(req.params.id, function(err, listing) {
 
@@ -31,3 +39,4 @@ app.get('/listing/:id', function(req, res, next){
 	});    
 
 });
+
