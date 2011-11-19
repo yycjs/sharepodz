@@ -3,9 +3,16 @@
  * Module dependencies.
  */
 
-var express = require('express');
+var express = require('express'),
+	config = require('./config.js');
 
 var app = module.exports = express.createServer();
+
+// Mongoose Dependencies
+mongoose = require('mongoose');
+mongoose.connect(config.connection);
+Schema = mongoose.Schema;
+ObjectId = Schema.ObjectId;
 
 // Configuration
 
