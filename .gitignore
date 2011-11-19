@@ -1,4 +1,5 @@
 .DS_Store
 node_modules/
+public/images/uploaded
 npm-debug.log
 *.swp

@@ -13,4 +13,4 @@ module.exports = {
     }
 };
 
-exports.connection = "mongodb://localhost/opendesk";
+module.exports.connection = "mongodb://localhost/opendesk";

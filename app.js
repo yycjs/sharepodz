@@ -4,9 +4,8 @@
  */
 
 var express = require('express'),
-	formidable = require('formidable'),
     everyauth = require('everyauth'),
-    config = require('./config.js'),
+    config = require('./config'),
     util = require('util'),
     Promise = everyauth.Promise,
 	sys = require('sys'),
