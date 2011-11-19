@@ -1,4 +1,3 @@
-
 app.post('/upload', function(req, res, next){
 	// parse a file upload
 	var form = new formidable.IncomingForm();

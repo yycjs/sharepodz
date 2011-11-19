@@ -7,9 +7,10 @@ var express = require('express'),
 	formidable = require('formidable'),
     everyauth = require('everyauth'),
     config = require('./config.js'),
-    util      = require('util'),
-    Promise   = everyauth.Promise,
-	sys = require('sys');
+    util = require('util'),
+    Promise = everyauth.Promise,
+	sys = require('sys'),
+	fs = require('fs');
 
 everyauth.debug = true;
 
@@ -50,7 +51,7 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-
+// require all file in the /routes folder
 fs.readdir( './routes', function( err, files ) {
 	files.forEach(function(file) {
 		require( './routes/'+file );

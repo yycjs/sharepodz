@@ -3,7 +3,7 @@ var UserSchema = new Schema({
     phoneNumber : {type: String} 
 });
 
-var conf = require('../conf');
+var conf = require('../config');
 
 UserSchema.plugin(mongooseAuth, {
     // Here, we attach your User model to every module
