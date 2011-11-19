@@ -53,7 +53,7 @@ app.configure('production', function(){
 // require all file in the /routes folder
 fs.readdir( './routes', function( err, files ) {
 	files.forEach(function(file) {
-		require( './routes/'+file );
+		if (file.match(/.js$/)) require( './routes/'+file );
 	});
 
 	mongooseAuth.helpExpress(app);
