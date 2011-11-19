@@ -3,7 +3,9 @@
  * Module dependencies.
  */
 
-var express = require('express');
+var express = require('express'),
+	formidable = require('formidable'),
+	sys = require('sys');
 
 var app = module.exports = express.createServer();
 
@@ -38,6 +40,27 @@ app.get('/', function (req, res) {
     }
   });
 });
+
+app.post('/upload', function(req, res, next){
+	// parse a file upload
+	var form = new formidable.IncomingForm();
+	form.keepExtensions = true;
+	form.uploadDir = __dirname + '/public'
+	form.parse(req, function(err, fields, files) {
+		if (err) next(err);
+		// res.writeHead(200, {'content-type': 'text/plain'});
+		// res.write('received upload:\n\n');
+		// res.end(sys.inspect({fields: fields, files: files}));
+		var path = files.upload.path.split('/');
+		res.redirect('/' + path[path.length-1]);
+	});
+});
+
+app.get('/upload', function(req, res, next){
+	res.render('upload');
+})
+
+
 
 // req.query.title
 
