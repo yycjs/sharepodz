@@ -1,4 +1,5 @@
 var formidable = require('formidable');
+var sys = require('sys');
 
 app.get('/listing/new', function(req, res, next){
 	res.render('listing/new');
@@ -19,13 +20,14 @@ app.post('/listing/create', function(req, res, next){
 });
 
 app.get('/listing/:id', function(req, res, next){
-	var listing = Listing.find({_id: req.params.id});    
+	Listing.findById(req.params.id, function(err, listing) {
 
-	//Can't find the things...... not sure why
-	console.log('found listing with ' + listing.title);
+		sys.inspect(listing, true);
 
-	res.render('listing/show', {
-		locals: JSON.stringify(listing)
-	});
+		res.render('listing/show', {
+			locals: {listing: listing}
+		});
+
+	});    
 
 });
