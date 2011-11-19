@@ -22,9 +22,10 @@
 <div id="container">
 	<header id="top">
         <img src="img/logo.gif" alt="Logo" class="logo" />
-        <ul id="login">
+        <ul id="secondary-nav">
             <li class="rounded-b-left"><a href="">Sign Up</a></li>
-            <li class="login rounded-b-right"><a href="">Login</a></li>
+            <li class="login"><a href="">Login</a></li>
+            <li class="search rounded-b-right"><a class="thickbox" href="search.html?TB_iframe=true&width=760&height=500">Search</a></li>
         </ul>
         <ul id="menu">
             <li><a href="#">podz</a></li>
@@ -34,6 +35,10 @@
 	</header>
 	<div id="main" role="main">
         <div class="main-content">
+            <!-- <div class="search rounded10">
+                <label for="">Search</label>
+                <input type="text" />
+            </div> -->
             <article class="listing preview">
                 <aside><img src="http://placedog.com/152/95" alt="" /></aside>
                 <header>
@@ -159,8 +164,12 @@
 	<footer>
 
 	</footer>
-</div> <!--! end of #container -->
+</div>
     <script src="js/jquery/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <!-- Search results page scripts -->
     <script src="js/search_results.js" type="text/javascript"></script>
+    <!-- Search-related scripts -->
+    <script src="js/thickbox-compressed.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="css/thickbox.css">
 </body>
 </html>
