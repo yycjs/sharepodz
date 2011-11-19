@@ -19,6 +19,7 @@
         , "stache": ">=0.0.3"
     	, "mongoose": ">=2.3.9"
     	, "mongoose-types": ">=1.0.3"
+      , "mongoose-auth": ">=0.0.1"
     	, "express-messages": ">=0.0.1"
     	, "express-validator": ">=0.1.1"
     	, "juice": ">=0.0.5"
