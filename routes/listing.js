@@ -12,6 +12,8 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     });
     
     //Input Validation
+    req.assert(req.body.name, 'You gotta name your space!').notEmpty();
+    req.assert(req.body.tagline, 'You should provide a little search description').notEmpty();
     req.assert(req.body.description, 'You need to provide a listing description').notEmpty();
     req.assert(req.body.city, 'You need to provide a city').notEmpty();
     req.assert(req.body.province, 'You need to provide a province').notEmpty();
@@ -37,7 +39,8 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     var listing = new Listing();
 
     listing.owner = req.user.id;
-    listing.title = req.body.title;
+    listing.name = req.body.name;
+    listing.about = req.body.about;
     listing.description = req.body.description;
     listing.city = req.body.city;
     listing.province = req.body.province;
