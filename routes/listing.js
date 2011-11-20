@@ -83,11 +83,28 @@ app.get('/listing/search*', function(req, res, next) {
 });
 
 app.get('/listing/results', getPopularTags, function(req, res, next) {
-    Listing.find({}, function(err, listings) {
+    Listing.find({}).limit(10).exec(function(err, listings) {
         for (var i = 0; i < listings.length; i++) {
-            listings[i].mainImage = listings[i].images[0];
+            if (listings[i].images.length)
+                listings[i].mainImage = listings[i].images[0];
+            else
+                listings[i].mainImage; //TODO: Add stub image
         }
         res.render('listing/results', {
+            locals: {results: listings, popularTags: req.popularTags}
+        });
+    });
+});
+
+app.get('/listing/browse', getPopularTags, function(req, res, next) {
+    Listing.find({}).limit(10).sort('created', -1).exec(function(err, listings) {
+        for (var i = 0; i < listings.length; i++) {
+            if (listings[i].images.length)
+                listings[i].mainImage = listings[i].images[0];
+            else
+                listings[i].mainImage; //TODO: Add stub image
+        }
+        res.render('listing/browse', {
             locals: {results: listings, popularTags: req.popularTags}
         });
     });
