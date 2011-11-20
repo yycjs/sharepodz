@@ -8,7 +8,7 @@
     }
   , "private": "true"
   , "homepage": ""
-  , "main": "./app.js"
+  , "main": "./server.js"
   , "engines": {"node": "0.4.9"}
   , "repository": {
         "type": "git"
