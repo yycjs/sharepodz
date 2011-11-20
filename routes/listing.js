@@ -94,7 +94,7 @@ app.get('/listing/search*', function(req, res, next) {
     });
 });
 
-app.post('/listing/search', function(req, res, next) {
+app.post('/listing/search.json', function(req, res, next) {
     geocoder.geocode(req.body.loc, function(err, data) {
         var loc = data.results[0].geometry.location;
 
@@ -108,15 +108,22 @@ app.post('/listing/search', function(req, res, next) {
 });
 
 app.get('/listing/results', getPopularTags, function(req, res, next) {
-    Listing.find({}).limit(10).exec(function(err, listings) {
-        for (var i = 0; i < listings.length; i++) {
-            if (listings[i].images.length)
-                listings[i].mainImage = listings[i].images[0];
-            // else
-            //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
+    geocoder.geocode(req.query.loc, function(err, data) {
+        if (err) {
+            next(err);
+            return;
         }
-        res.render('listing/results', {
-            locals: {results: listings, popularTags: req.popularTags}
+        var loc = data.results[0].geometry.location;
+        Listing.find({ location: {$near:[loc.lng,loc.lat]}}, function(err, localListings) {
+            for (var i = 0; i < localListings.length; i++) {
+                if (localListings[i].images.length)
+                    localListings[i].mainImage = localListings[i].images[0];
+                // else
+                //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
+            }
+            res.render('listing/results', {
+                locals: {results: localListings, popularTags: req.popularTags}
+            });
         });
     });
 });

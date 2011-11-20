@@ -5,6 +5,7 @@
                 <input class="box rounded5" type="text" value="{{defaultLocation}}" />
             </div>
             <div class="map" data-query="{{defaultLocation}}"></div>
+            <a href="#" id="search_results_link">View results</a>
         </div>
         <div class="filtering">
             {{>search_refine_result}}
@@ -28,6 +29,10 @@
                     }
                     $map.links('#map_links a');
                 });
+            });
+            $('#search_results_link').click(function(e) {
+                e.preventDefault();
+                window.parent.location = '/listing/results?loc=' + $('#search div.search input').val();
             });
             $('div.map').gvmap().auto();
         });
