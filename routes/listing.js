@@ -19,7 +19,7 @@ app.post('/listing/create', function(req, res, next){
 	});
 });
 
-app.get('/listing/search&random=:id', function(req, res, next) {
+app.get('/listing/search*', function(req, res, next) {
     res.render('listing/search', { layout: 'listing/search_layout'});
 });
 
