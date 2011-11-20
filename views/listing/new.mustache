@@ -118,8 +118,9 @@
 <fieldset class="sep-bottom">
     <legend>Finally...</legend>
     <div class="input">
-        <label for="">Tags</label>
-        <ul id='tags-list' name="tags"></ul>
+        <label for="">Tags <span class="note"></span> </label>
+        <ul id='tags-list'></ul>
+        <select style='display:none;' id="tag-ids" name="tag_ids" multiple="multiple"></select>
 
         <div class="clear"></div>
     </div>
@@ -143,7 +144,36 @@
 
 
 <script type="text/javascript">
+
+
 $(function() {
-    $('#tags-list').tagit({select : true, triggerKeys: ['enter', 'comma', 'tab']});
+    var tagsSelect = $("#tag-ids");
+
+    $('#tags-list').tagit({select : true, triggerKeys: ['enter', 'comma', 'tab', 'space']});
+    $("#tags-list").bind("DOMNodeRemoved", function(objEvent) {
+        var tagText = $(objEvent.target).text();
+        tagText = tagText.slice(0, tagText.length - 1);
+        console.log('removed tag: ' + tagText);
+        $('tag' + $(objEvent.target).attr('id')).remove();
+        $.post("/tag/remove", { id: $(objEvent.target).attr('id') },
+                function(data) {
+                    console.log(data);
+
+                });
+    });
+
+    $("#tags-list").bind("DOMNodeInserted", function(objEvent) {
+        var tagText = $(objEvent.target).text();
+        tagText = tagText.slice(0, tagText.length - 1);
+        console.log('added tag: ' + tagText);
+
+        $.post("/tag/create", { name: tagText },
+                function(data) {
+                    console.log("Tag created / found: " + data.id);
+                    $(objEvent.target).attr('id', data.id);
+                    //var newOption = $("<option selected='selected'></option>");
+                    tagsSelect.append('<option selected="selected" id="tag-' + data.id + '" value="' + data.id + '">' + data.id + '</option>');
+                });
+    });
 });
 </script>
