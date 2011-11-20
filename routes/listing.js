@@ -31,7 +31,7 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
         req.assert('twitter', 'If your going to provide a twitter handle you need to provide a valid one').is(/^@/);
         
     req.assert('email', 'You need to provide an email').isEmail();
-    req.assert('startDate', 'You can\'t have an start date before today').isAfter();
+    req.assert('startDate', 'You can\'t have a start date before today').isAfter();
     req.assert('endDate', 'You can\'t have an end date before today').isAfter();
     
     if (errors.length) {
@@ -44,7 +44,7 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     
     listing.owner = req.user.id;
     listing.name = req.body.name;
-    listing.about = req.body.about;
+    listing.tagline = req.body.tagline;
     listing.description = req.body.description;
     listing.city = req.body.city;
     listing.province = req.body.province;
@@ -88,8 +88,8 @@ app.get('/listing/results', getPopularTags, function(req, res, next) {
         for (var i = 0; i < listings.length; i++) {
             if (listings[i].images.length)
                 listings[i].mainImage = listings[i].images[0];
-            else
-                listings[i].mainImage; //TODO: Add stub image
+            // else
+            //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
         }
         res.render('listing/results', {
             locals: {results: listings, popularTags: req.popularTags}
@@ -102,8 +102,8 @@ app.get('/listing/browse', getPopularTags, function(req, res, next) {
         for (var i = 0; i < listings.length; i++) {
             if (listings[i].images.length)
                 listings[i].mainImage = listings[i].images[0];
-            else
-                listings[i].mainImage; //TODO: Add stub image
+            // else
+            //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
         }
         res.render('listing/browse', {
             locals: {results: listings, popularTags: req.popularTags}
