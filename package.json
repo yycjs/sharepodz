@@ -1,5 +1,5 @@
 {
-	"name": "Open-Desk-Network"
+	"name": "SharePodz"
   , "description": "A Place for People to Hang Their Hat"	
   , "version": "0.0.1"
   , "author": { 
@@ -9,7 +9,7 @@
   , "private": "true"
   , "homepage": ""
   , "main": "./app.js"
-  , "engines": {"node": "0.4.12"}
+  , "engines": {"node": ">=0.4.9"}
   , "repository": {
         "type": "git"
         , "url": "git@github.com:AcceleratorYYC/Open-Desk.git"
@@ -20,7 +20,7 @@
     	, "mongoose": ">=2.3.9"
     	, "mongoose-auth": ">=0.0.1"
     	, "mongoose-types": ">=1.0.3"
-      , "mongoose-auth": ">=0.0.1"
+        , "mongoose-auth": ">=0.0.1"
     	, "express-messages": ">=0.0.1"
     	, "express-validator": ">=0.1.1"
     	, "juice": ">=0.0.5"
@@ -30,8 +30,4 @@
     	, "formidable": ">=1.0.7"
     	, "geocoder": ">=0.0.5"
     }
-    , "devDependencies": {
-          "expresso": ">=0.8.0"
-          , "node-inspector": ">=0.1.9"
-      }
 }
