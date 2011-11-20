@@ -2,6 +2,7 @@
 	$(function() {
 		var timeOut = 5000;
 		var $promoList = $('#promo>ul');
+		if ($promoList.length == 0) return;
 		var $promo = $('#promo>ul li:first-child');
 		function next() {
 			var newWidth = $promoList.width() + 526;
@@ -18,7 +19,8 @@
 						$promo = $('#promo>ul li:first-child');
 						setTimeout(next, timeOut);
 					}
-			});
+				}
+			);
 		}
 		setTimeout(next, timeOut);
 	});
