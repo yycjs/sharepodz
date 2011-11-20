@@ -5,11 +5,14 @@
 
 var express = require('express'),
     everyauth = require('everyauth'),
+    expressValidator = require('express-validator'),
     config = require('./config'),
     util = require('util'),
     Promise = everyauth.Promise,
 	sys = require('sys'),
 	fs = require('fs');
+
+require('./route-middleware');
 
 everyauth.debug = true;
 
@@ -35,9 +38,11 @@ Tag = mongoose.model('Tag');
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'mustache');
+  app.dynamicHelpers({messages: require('express-messages')});
   //app.set("view options", { layout: false })
   app.register(".mustache", require('stache'));
   app.use(express.bodyParser());
+  app.use(expressValidator);
   app.use(express.cookieParser());
   app.use(express.session({secret: "98489fads3ewqrcs"}));
   app.use(express.methodOverride());
@@ -52,6 +57,15 @@ app.configure('development', function(){
 
 app.configure('production', function(){
   app.use(express.errorHandler()); 
+});
+
+app.dynamicHelpers({
+    loggedInUser: function(req, res) {
+        return req.user;
+    },
+    flash: function(req, res) {
+        return req.flash();
+    }
 });
 
 // require all file in the /routes folder

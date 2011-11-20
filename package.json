@@ -28,7 +28,8 @@
     	, "everyauth": ">=0.2.0"
     	, "underscore": ">=1.2.1"
     	, "formidable": ">=1.0.7"
-    	}
+    	, "geocoder": ">=0.0.5"
+    }
     , "devDependencies": {
           "expresso": ">=0.8.0"
           , "node-inspector": ">=0.1.9"

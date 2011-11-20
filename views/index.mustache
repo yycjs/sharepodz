@@ -1,16 +1,24 @@
 <!-- <h1>{{title}}</h1> -->
-<div class="col">
+
+<div class="col thin">
     <h2>Latest podz</h2>
+    {{#latest}}
+        <img src="http://placekitten.com/g/278/205" alt="" />
+    {{/latest}}
 </div>
-<div class="col">
-    <h2>Popular podz</h2>
+<div class="col wide">
+    <div class="popular">
+        <h2>Popular podz</h2>
+        <ul>
+            {{#results}}
+                <li class="listing-{{id}}">
+                    <img src="http://placekitten.com/g/126/97" alt="{{title}}" title="{{title}}" />
+                </li>
+            {{/results}}
+        </ul>
+    </div>
 </div>
-<div class="col">
+<div class="col thin">
     <h2>Recent Activity</h2>
 </div>
-<p>
-  <a href="/auth/twitter">Log In With Twitter</a>
-</p>
-<p>
-  <a href="/listing/new">Add a new Listing</a>
-</p>
+<div class="clear"></div>

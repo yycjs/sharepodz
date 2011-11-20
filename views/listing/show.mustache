@@ -1,57 +1,84 @@
 {{#listing}}
-<h1>{{title}}</h1>
-<div id="left">
-	<div id="gallery">
-        {{#images}}
-        	<img src="{{.}}" width="610" height="420" />
-        {{/images}}
-    </div>
-	<h2>Description</h2>
-	<p>{{description}}</p>
-	<br />
-	<h2>Tags</h2>
-	<ul id="tags">
-		{{#tags}}
-			<li>{{.}}</li>
-		{{/tags}}
-	</ul>
+<div class="page">
+	<div class="left">
+		<p><a href="#" class="button">Contact host</a></p>
+		
+		<div class="description">
+			<h2>{{name}}</h2>
+			<small>{{address1}} {{city}}, {{province}}</small>
+		</div>
+		
+		<div class="details">
+			<h3>Contact</h3>
+			<p><small>
+			Website: <a href="{{website}}">{{website}}</a><br />
+			Twitter: <a href="http://twitter.com/{{twitter}}">@{{twitter}}</a><br />
+			Email: <a href="mailto:{{email}}">{{email}}</a>
+			</small></p>
+			
+			<h3>Availability</h3>
+			<p>Start: {{startDate}}<br />
+			End: {{endDate}}</p>
+			
+			<h3>Pricing</h3>
+			<p>{{price}}</p>
+			
+			<h3>Vibe</h3>
+			<p>Collaborative startup</p>
+			
+			<h3>About</h3>
+			<p>{{about}}</p>
+		</div>
+				
+		<div class="map" data-longitude="{{lng}}" data-latitude="{{lat}}" data-zoom="14" data-control="large" data-type="map" data-placeholder="{{name}}"></div>
+	</div>
+	
+	<div class="right">
+		<div id="gallery">
+	        {{#images}}
+	        	<img src="{{.}}" width="610" height="420" />
+	        {{/images}}
+		</div>
+
+		<div>
+			<div class='description-box'>
+				<h3>Description</h3>
+				<p>{{description}}</p>
+			</div>
+			<div class='seeking-box'>
+				<p>We'd like to host:</p>
+					<ul>
+						<li>Writers</li>
+					<li>Entrepreneurs</li>
+					<li>Designers</li>
+					<li>Marketing/PR</li>
+					<li>Architects</li>
+				</ul>
+			</div>
+			<div class="clearfix" />
+		</div>	
+		<h3>Amenities</h3>
+		<ul class="tags">
+			{{#tags}}
+				<li>{{.}}</li>
+			{{/tags}}
+		</ul>
+	</div>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.map').gvmap().auto();
+	        Galleria.loadTheme('/scripts/galleria/themes/classic/galleria.classic.min.js');
+	        $("#gallery").galleria({
+	            width: 640,
+	            height: 480,
+		    thumbCrop: 'height',
+	        });
+		});
+	
+	
+	</script>
+	
+	
+	{{/listing}}
 </div>
-
-<div id="right">
-	<div class="map" data-query="{{address1}} {{city}}, {{province}}" data-zoom="14" data-control="large" data-type="map" data-placeholder="{{title}}"></div>
-	<!--<h2>Location</h2>-->
-	<br />
-	<address>
-		{{address1}}<br />
-		{{#address2}}
-			{{address2}}<br />
-		{{/address2}}
-		{{city}}, {{province}}
-	</address>
-	<hr />
-	<!--
-	<p>City: {{city}}</p>
-	<p>Province: {{province}}</p>
-	<p>Address 1: {{address1}}</p>
-	<p>Address 2: {{address2}}</p>
-	<p>Postal Code: {{postalCode}}</p>
-	-->
-	<p>Website: <a href="{{website}}">{{website}}</a></p>
-	<p>Twitter: <a href="http://twitter.com/{{twitter}}">@{{twitter}}</a></p>
-	<p>Email: <a href="mailto:{{email}}">{{email}}</a></p>
-</div>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('.map').gvmap().auto();
-        Galleria.loadTheme('/scripts/galleria/themes/classic/galleria.classic.min.js');
-        $("#gallery").galleria({
-            width: 610,
-            height: 500
-        });
-	});
-
-
-</script>
-
-
-{{/listing}}
