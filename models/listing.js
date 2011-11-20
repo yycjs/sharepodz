@@ -1,7 +1,7 @@
 var ListingSchema = new Schema({
 	owner: ObjectId,
 	name: {type: String},
-	tagline: {type: String},
+	about: {type: String},
 	description: {type: String},
 	city: {type: String},
 	province: {type: String},
@@ -16,6 +16,7 @@ var ListingSchema = new Schema({
 	created: {type: Date, default: Date.now},
 	startDate: {type: Date, default: Date.now},
     endDate: {type: Date, default: Date.now},
+    price: {type: String, default: "Free"},
 	tags: [],
 	images: []
 });

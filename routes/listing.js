@@ -16,7 +16,7 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     
     //Input Validation
     req.assert('name', 'You gotta name your space!').notNull();
-    req.assert('tagline', 'You should provide a little search description').notNull();
+    req.assert('about', 'You should provide a little search description').notNull();
     req.assert('description', 'You need to provide a listing description').notNull();
     req.assert('city', 'You need to provide a city').notNull();
     req.assert('province', 'You need to provide a province').notNull();
@@ -59,6 +59,7 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     listing.endDate = req.body.endDate;
     listing.tags = req.body.tags;
     listing.images = [];
+    listing.price = req.body.price;
     
     geocode_addr = listing.address1 + ", " + listing.address2 + ", " + listing.city + ", " + listing.province;
     geocoder.geocode(geocode_addr, function ( err, data ) {
