@@ -1,5 +1,6 @@
 var formidable = require('formidable');
 var sys = require('sys');
+var geocoder = require('geocoder');
 
 app.get('/listing/new', requireAuthorization, function(req, res, next){
     res.render('listing/new');
@@ -20,8 +21,8 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     req.assert('city', 'You need to provide a city').notNull();
     req.assert('province', 'You need to provide a province').notNull();
     req.assert('address1', 'You need to provide an address').notNull();
-    req.assert('postalCode', 'You need to provide an postal code').notNull(); //TODO: Validate postal code
-    req.assert('phone', 'You need to provide an postal code').notNull(); //TODO: Validate phone
+    req.assert('postalCode', 'You need to provide an postal code').is(/^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z] \d[A-Z]\d$/);
+    req.assert('phone', 'You need to provide a phone number').is(/^(?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
     
     if (req.body.website != '')
         req.assert('website', 'If your going to provide a website you need to provide a valid one').isUrl();
@@ -39,7 +40,8 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     }
 
     var listing = new Listing();
-
+    var lat, lng, geocode_addr;
+    
     listing.owner = req.user.id;
     listing.name = req.body.name;
     listing.about = req.body.about;
@@ -48,24 +50,31 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     listing.province = req.body.province;
     listing.address1 = req.body.address1;
     listing.address2 = req.body.address2;
-    listing.postalCode = req.body.postalCode;
-    listing.location = [null, null]; //TODO: Get location from google geocoding response and store it as [lng, lat]
-    listing.phone = req.body.phone;
+    listing.postalCode = req.body.postalCode.replace(/([A-Z]\d[A-Z]) (\d[A-Z]\d)$/, "$1 $2");
+    listing.phone = req.body.phone.replace(/^(?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, "1$1$2$3");
     listing.website = req.body.website;
     listing.twitter = req.body.twitter;
-    listing.email = req.body.email;
+    listing.email = req.body.email.toLowerCase();
     listing.startDate = req.body.startDate;
     listing.endDate = req.body.endDate;
     listing.tags = req.body.tags;
     listing.images = [];
+    
+    geocode_addr = listing.address1 + ", " + listing.address2 + ", " + listing.city + ", " + listing.province;
+    geocoder.geocode(geocode_addr, function ( err, data ) {
+        lat = data.results[0].geometry.location.lat;
+        lng = data.results[0].geometry.location.lng;
+        
+        listing.location = [lng, lat];
 
-    listing.save(function(err, doc){
-        if(err) next(new Error('DB Error: Cannot Save Listing'));
-        else {
-            var now = new Date();
-            console.log(now + ' - Created listing' + doc.id);
-            res.redirect('/listing/' + doc.id);
-        };
+        listing.save(function(err, doc){
+            if (err) next(new Error('DB Error: Cannot Save Listing'));
+            else {
+                var now = new Date();
+                console.log(now + ' - Created listing ' + doc.id);
+                res.redirect('/listing/' + doc.id);
+            };
+        });
     });
 });
 
@@ -87,7 +96,10 @@ app.get('/listing/results', getPopularTags, function(req, res, next) {
 app.get('/listing/:id', function(req, res, next){
     Listing.findById(req.params.id, function(err, listing) {
 	    sys.inspect(listing, true);
-
+        
+        listing.lat = listing.location[1];
+        listing.lng = listing.location[0];
+        
 	    res.render('listing/show', {
    	        locals: {listing: listing, popularTags: req.popularTags}
 	    });

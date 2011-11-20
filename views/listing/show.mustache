@@ -4,7 +4,7 @@
 		<p><a href="#" class="button">Contact host</a></p>
 		
 		<div class="description">
-			<h2>{{title}}</h2>
+			<h2>{{name}}</h2>
 			<small>{{address1}} {{city}}, {{province}}</small>
 		</div>
 		
@@ -26,7 +26,7 @@
 			<p>{{about}}</p>
 		</div>
 				
-		<div class="map" data-query="{{address1}} {{city}}, {{province}}" data-zoom="14" data-control="large" data-type="map" data-placeholder="{{title}}"></div>
+		<div class="map" data-longitude="{{lng}}" data-latitude="{{lat}}" data-zoom="14" data-control="large" data-type="map" data-placeholder="{{name}}"></div>
 	</div>
 	
 	<div class="right">
@@ -34,11 +34,25 @@
 	        {{#images}}
 	        	<img src="{{.}}" width="610" height="420" />
 	        {{/images}}
-	    </div>
+		</div>
 
-		<h3>Description</h3>
-		<p>{{description}}</p>
-		
+		<div>
+			<div class='description-box'>
+				<h3>Description</h3>
+				<p>{{description}}</p>
+			</div>
+			<div class='seeking-box'>
+				<p>We'd like to host:</p>
+					<ul>
+						<li>Writers</li>
+					<li>Entrepreneurs</li>
+					<li>Designers</li>
+					<li>Marketing/PR</li>
+					<li>Architects</li>
+				</ul>
+			</div>
+			<div class="clearfix" />
+		</div>	
 		<h3>Amenities</h3>
 		<ul class="tags">
 			{{#tags}}
@@ -53,7 +67,8 @@
 	        Galleria.loadTheme('/scripts/galleria/themes/classic/galleria.classic.min.js');
 	        $("#gallery").galleria({
 	            width: 640,
-	            height: 480
+	            height: 480,
+		    thumbCrop: 'height',
 	        });
 		});
 	
