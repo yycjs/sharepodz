@@ -436,3 +436,19 @@ ul.tags li {
 	margin-top: 8px;
 	font-size: 14px;
 }
+
+.create-listing-table {
+
+	
+}
+
+.create-listing-table tr {
+	
+}
+
+.create-listing-table th {
+	width: 200px;
+	font-weight: bold;
+	text-align: left;
+	padding: 10px 5px 10px 0px;
+}
