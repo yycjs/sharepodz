@@ -1,12 +1,11 @@
 <div class="main-content">
 {{#results}}
     <article class="listing preview">
-        <aside><img src="{{mainImg}}" alt="" /></aside>
+        <aside>{{#mainImage}}<img src="{{mainImage}}" alt="" />{{/mainImage}}</aside>
         <header>
             <h1><a href="/listing/{{_id}}">{{title}}</a></h1>
         </header>
-        <p>{{address1}}</p>
-        <p>{{city}}, {{province}} {{postalCode}}</p>
+        <p>{{city}}, {{province}}</p>
     </article>
 {{/results}}
 </div>

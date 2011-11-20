@@ -1,11 +1,21 @@
 var formidable = require('formidable');
 var sys = require('sys');
 
-app.get('/listing/new', function(req, res, next){
+function requireAuthorization(req, res, next) {
+    if (!req.user) {
+        req.flash('error', 'You must be logged in to access this page');
+        res.redirect('/');
+        //next(new Error('You must be logged in to access this page'));
+    }
+    else
+        next();
+}
+
+app.get('/listing/new', requireAuthorization, function(req, res, next){
 	res.render('listing/new');
 });
 
-app.post('/listing/create', function(req, res, next){
+app.post('/listing/create', requireAuthorization, function(req, res, next){
 	var listing = new Listing(req.body);
 
 	listing.save(function(err, user_Saved){
@@ -37,7 +47,9 @@ app.get('/listing/search*', function(req, res, next) {
 
 app.get('/listing/results', getPopularTags, function(req, res, next) {
     Listing.find({}, function(err, listings) {
-        console.log(listings);
+        for (var i = 0; i < listings.length; i++) {
+            listings[i].mainImage = listings[i].images[0];
+        }
         res.render('listing/results', {
             locals: {results: listings, popularTags: req.popularTags}
         });
