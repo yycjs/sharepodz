@@ -46,6 +46,9 @@ h2 {
 	background: linear-gradient(top,  #ffffff 0%,#00aeef 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00aeef',GradientType=0 ); /* IE6-9 */
 }
+a.cta:visited {
+	color:#000;
+}
 .clear {
 	height:0;
 	clear:both;
