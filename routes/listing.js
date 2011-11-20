@@ -1,22 +1,21 @@
-var formidable = require('formidable');
-var sys = require('sys');
-var geocoder = require('geocoder');
+var formidable = require('formidable')
+    , sys = require('sys')
+    , _ = require('underscore')
+    , geocoder = require('geocoder');
 
 app.get('/listing/new', requireAuthorization, function(req, res, next){
     res.render('listing/new');
 });
 
-app.post('/listing/create', requireAuthorization, function(req, res, next){
+app.post('/listing/create', requireAuthorization, function(req, res, next){    
     var errors = [];
     req.onValidationError(function(msg) {
         errors.push(msg);
     });
     
-    
-    
     //Input Validation
     req.assert('name', 'You gotta name your space!').notNull();
-    req.assert('about', 'You should provide a little search description').notNull();
+    req.assert('tagline', 'You should provide a little search description').notNull();
     req.assert('description', 'You need to provide a listing description').notNull();
     req.assert('city', 'You need to provide a city').notNull();
     req.assert('province', 'You need to provide a province').notNull();
@@ -66,7 +65,16 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     listing.startDate = req.body.startDate;
     listing.endDate = req.body.endDate;
     listing.tags = req.body.tags;
-    listing.images = [];
+    if (req.body.spaces == "10+")
+        listing.spaces = 10;
+    else
+        listing.spaces = parseInt(req.body.spaces);
+    if (_.isArray(req.body.image)) {
+        for (var i in req.body.image) {
+            var imagePath = req.body.image[i].path.split('/public');
+            listing.images.push(imagePath[1]);
+        }
+    }
     listing.price = req.body.price;
     
     geocode_addr = listing.address1 + ", " + listing.address2 + ", " + listing.city + ", " + listing.province;
@@ -88,19 +96,42 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
 });
 
 app.get('/listing/search*', function(req, res, next) {
-    res.render('listing/search', { layout: 'listing/search_layout'});
+    res.render('listing/search', { 
+        layout: 'listing/search_layout',
+        defaultLocation: 'Calgary, Alberta, Canada' 
+    });
+});
+
+app.post('/listing/search.json', function(req, res, next) {
+    geocoder.geocode(req.body.loc, function(err, data) {
+        var loc = data.results[0].geometry.location;
+
+        Listing.find({ location: { $near: [loc.lng,loc.lat]} }, function(err, localListings) {
+            if (err)
+                res.json({ error: err });
+            else 
+                res.json({ center:loc, listings:localListings });
+        });
+    });
 });
 
 app.get('/listing/results', getPopularTags, function(req, res, next) {
-    Listing.find({}).limit(10).exec(function(err, listings) {
-        for (var i = 0; i < listings.length; i++) {
-            if (listings[i].images.length)
-                listings[i].mainImage = listings[i].images[0];
-            // else
-            //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
+    geocoder.geocode(req.query.loc, function(err, data) {
+        if (err) {
+            next(err);
+            return;
         }
-        res.render('listing/results', {
-            locals: {results: listings, popularTags: req.popularTags}
+        var loc = data.results[0].geometry.location;
+        Listing.find({ location: {$near:[loc.lng,loc.lat]}}, function(err, localListings) {
+            for (var i = 0; i < localListings.length; i++) {
+                if (localListings[i].images.length)
+                    localListings[i].mainImage = localListings[i].images[0];
+                // else
+                //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
+            }
+            res.render('listing/results', {
+                locals: {results: localListings, popularTags: req.popularTags}
+            });
         });
     });
 });
@@ -121,14 +152,18 @@ app.get('/listing/browse', getPopularTags, function(req, res, next) {
 
 app.get('/listing/:id', function(req, res, next){
     Listing.findById(req.params.id, function(err, listing) {
-	    sys.inspect(listing, true);
-        
-        listing.lat = listing.location[1];
-        listing.lng = listing.location[0];
-        
-	    res.render('listing/show', {
-   	        locals: {listing: listing, popularTags: req.popularTags}
-	    });
+        if (err) next(new Error('DB Error'));
+        if (listing) {
+            sys.inspect(listing, true);
+
+            listing.lat = listing.location[1];
+            listing.lng = listing.location[0];
+
+    	    res.render('listing/show', {
+       	        locals: {listing: listing, popularTags: req.popularTags}
+    	    });
+        }
+        else next(new Error('Could not find listing')); 
 	});
 });
 
