@@ -34,11 +34,25 @@
 	        {{#images}}
 	        	<img src="{{.}}" width="610" height="420" />
 	        {{/images}}
-	    </div>
+		</div>
 
-		<h3>Description</h3>
-		<p>{{description}}</p>
-		
+		<div>
+			<div class='description-box'>
+				<h3>Description</h3>
+				<p>{{description}}</p>
+			</div>
+			<div class='seeking-box'>
+				<p>We'd like to host:</p>
+					<ul>
+						<li>Writers</li>
+					<li>Entrepreneurs</li>
+					<li>Designers</li>
+					<li>Marketing/PR</li>
+					<li>Architects</li>
+				</ul>
+			</div>
+			<div class="clearfix" />
+		</div>	
 		<h3>Amenities</h3>
 		<ul class="tags">
 			{{#tags}}
@@ -53,7 +67,8 @@
 	        Galleria.loadTheme('/scripts/galleria/themes/classic/galleria.classic.min.js');
 	        $("#gallery").galleria({
 	            width: 640,
-	            height: 480
+	            height: 480,
+		    thumbCrop: 'height',
 	        });
 		});
 	
