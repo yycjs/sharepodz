@@ -52,6 +52,15 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+app.dynamicHelpers({
+    loggedInUser: function(req, res) {
+        return req.user;
+    },
+    flash: function(req, res) {
+        return req.flash();
+    }
+});
+
 // require all file in the /routes folder
 fs.readdir( './routes', function( err, files ) {
 	files.forEach(function(file) {
