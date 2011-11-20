@@ -2,11 +2,9 @@
         <div class="search">
             <div class="input text search">
                 <label for="">City, Address...</label>
-                <input class="box rounded5" type="text" />
+                <input class="box rounded5" type="text" value="{{defaultLocation}}" />
             </div>
-            <div class="map">
-                <iframe width="521" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps/ms?hl=en&amp;vpsrc=0&amp;ctz=420&amp;ie=UTF8&amp;msa=0&amp;msid=210520800783896597537.0004b20ffb41cef015931&amp;t=m&amp;ll=51.041934,-114.03609&amp;spn=0.004722,0.006223&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="http://maps.google.com/maps/ms?hl=en&amp;vpsrc=0&amp;ctz=420&amp;ie=UTF8&amp;msa=0&amp;msid=210520800783896597537.0004b20ffb41cef015931&amp;t=m&amp;ll=51.041934,-114.03609&amp;spn=0.004722,0.006223&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Untitled</a> in a larger map</small>            
-            </div>
+            <div class="map" data-query="{{defaultLocation}}"></div>
         </div>
         <div class="filtering">
             {{>search_refine_result}}
@@ -14,5 +12,24 @@
                 <input type="submit" value="Search"></input>
             </div>
         </div>
+        <div id="map_links" style="display:none"></div>
 	</div>
-    <script src="js/search.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var $map = $('div.map').gvmap();
+            $map.auto();
+            $('#search div.filtering input[type="submit"]').click(function() {
+                $.post('/listing/search', {loc:$('#search div.search input').val()}, function(data, textStatus) {
+                    $map.latLng(data.center.lat, data.center.lng);
+                    var lnks = $('#map_links').empty();
+                    for (var i = 0; i < data.listings.length; i++) {
+                        var loc = data.listings[i];
+                        lnks.append('<a href="#" data-query="' +  + '" data-placeholder="' + loc.name + '">' + loc.name + '</a>');
+                    }
+                    $map.links('#map_links a');
+                });
+            });
+            $('div.map').gvmap().auto();
+        });
+    </script>
+    <script src="/js/search.js" type="text/javascript"></script>

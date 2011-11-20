@@ -88,7 +88,23 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
 });
 
 app.get('/listing/search*', function(req, res, next) {
-    res.render('listing/search', { layout: 'listing/search_layout'});
+    res.render('listing/search', { 
+        layout: 'listing/search_layout',
+        defaultLocation: 'Calgary, Alberta, Canada' 
+    });
+});
+
+app.post('/listing/search', function(req, res, next) {
+    geocoder.geocode(req.body.loc, function(err, data) {
+        var loc = data.results[0].geometry.location;
+
+        Listing.find({ location: { $near: [loc.lng,loc.lat]} }, function(err, localListings) {
+            if (err)
+                res.json({ error: err });
+            else 
+                res.json({ center:loc, listings:localListings });
+        });
+    });
 });
 
 app.get('/listing/results', getPopularTags, function(req, res, next) {
