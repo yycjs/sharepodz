@@ -19,5 +19,9 @@ var ListingSchema = new Schema({
 	images: []
 });
 
+ListingSchema.statics.getPopularTags = function getPopularTags(max, cb) {
+    return this.distinct('tags').limit(max).run(cb);
+}
+
 mongoose.model('Listing', ListingSchema);
 

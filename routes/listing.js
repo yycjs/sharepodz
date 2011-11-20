@@ -1,11 +1,11 @@
 var formidable = require('formidable');
 var sys = require('sys');
 
-app.get('/listing/new', function(req, res, next){
+app.get('/listing/new', requireAuthorization, function(req, res, next){
     res.render('listing/new');
 });
 
-app.post('/listing/create', function(req, res, next){
+app.post('/listing/create', requireAuthorization, function(req, res, next){
     var errors = [];
     req.onValidationError(function(msg) {
         errors.push(msg);
@@ -68,24 +68,24 @@ app.get('/listing/search*', function(req, res, next) {
     res.render('listing/search', { layout: 'listing/search_layout'});
 });
 
-app.get('/listing/results', function(req, res, next) {
+app.get('/listing/results', getPopularTags, function(req, res, next) {
     Listing.find({}, function(err, listings) {
+        for (var i = 0; i < listings.length; i++) {
+            listings[i].mainImage = listings[i].images[0];
+        }
         res.render('listing/results', {
-            locals: {results: listings}
+            locals: {results: listings, popularTags: req.popularTags}
         });
     });
 });
 
 app.get('/listing/:id', function(req, res, next){
     Listing.findById(req.params.id, function(err, listing) {
+	    sys.inspect(listing, true);
 
-        sys.inspect(listing, true);
-
-        res.render('listing/show', {
-            locals: {listing: listing}
-        });
-
-    });    
-
+	    res.render('listing/show', {
+   	        locals: {listing: listing, popularTags: req.popularTags}
+	    });
+	});
 });
 

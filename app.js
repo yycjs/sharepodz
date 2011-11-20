@@ -12,6 +12,8 @@ var express = require('express'),
 	sys = require('sys'),
 	fs = require('fs');
 
+require('./route-middleware');
+
 everyauth.debug = true;
 
 app = module.exports = express.createServer();
@@ -53,6 +55,15 @@ app.configure('development', function(){
 
 app.configure('production', function(){
   app.use(express.errorHandler()); 
+});
+
+app.dynamicHelpers({
+    loggedInUser: function(req, res) {
+        return req.user;
+    },
+    flash: function(req, res) {
+        return req.flash();
+    }
 });
 
 // require all file in the /routes folder

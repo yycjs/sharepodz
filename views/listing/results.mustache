@@ -1,36 +1,17 @@
 <div class="main-content">
 {{#results}}
     <article class="listing preview">
-        <aside><img src="{{mainImg}}" alt="" /></aside>
+        <aside>{{#mainImage}}<img src="{{mainImage}}" alt="" />{{/mainImage}}</aside>
         <header>
-            <h1>{{title}}</h1>
+            <h1><a href="/listing/{{_id}}">{{title}}</a></h1>
         </header>
-        <p>{{address1}}</p>
-        <p>{{city}}, {{province}} {{postalCode}}</p>
+        <p>{{city}}, {{province}}</p>
     </article>
 {{/results}}
 </div>
 <div class="sidebar">
     <div class="related">
         <iframe width="290" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps/ms?hl=en&amp;vpsrc=0&amp;ctz=420&amp;ie=UTF8&amp;msa=0&amp;msid=210520800783896597537.0004b20ffb41cef015931&amp;t=m&amp;ll=51.041934,-114.03609&amp;spn=0.004722,0.006223&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="http://maps.google.com/maps/ms?hl=en&amp;vpsrc=0&amp;ctz=420&amp;ie=UTF8&amp;msa=0&amp;msid=210520800783896597537.0004b20ffb41cef015931&amp;t=m&amp;ll=51.041934,-114.03609&amp;spn=0.004722,0.006223&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Untitled</a> in a larger map</small>
-        <section class="refine-result">
-            <h1>Narrow Search Results</h1>
-            <ul>
-                <li><input type="checkbox" /> No kittens</li>
-                <li><input type="checkbox" /> No puppies</li>
-                <li><input type="checkbox" /> Free Beer</li>
-                <li><input type="checkbox" /> Foosball Table</li>
-                <li><input type="checkbox" /> Fax Machine</li>
-                <li><input type="checkbox" /> Private Offices</li>
-                <li class="range">
-                    Price?<br />
-                    <input type="range" name="some_name" value="" />
-                </li>
-                <li class="range">
-                    Other range<br />
-                    <input type="range" name="some_name" value="" />
-                </li>
-            </ul>
-        </section>
+        {{>search_refine_result}}
     </div>
 </div>
