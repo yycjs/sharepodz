@@ -47,9 +47,9 @@
             <li><a href="/about">about</a></li>
         </ul>
 	</header>
-{{#is_home}}
 </div>
-<div id="promo">
+<div id="promo" class="{{#is_home}} home{{/is_home}}{{^is_home}} bubble{{/is_home}}">
+{{#is_home}}
     <ul>
         <li>
             <img src="../images/layout/slide01.jpg" width="526" height="361" alt="">
@@ -64,13 +64,13 @@
             <div class="overlay"></div>
         </li>
     </ul>
+{{/is_home}}
     <div class="container">
-        <h1 class="bubble">Sharepodz Helps Entrepreneurs find Shared Workspaces at Top Start-Ups Across Canada</h1>
+        <h1{{#is_home}} class="bubble"{{/is_home}}>Sharepodz Helps Entrepreneurs find Shared Workspaces at Top Start-Ups Across Canada</h1>
         <a class="cta rounded10 thickbox" href="/listing/search?TB_iframe=true&width=760&height=500">Find a Workspace!</a>
     </div>
 </div>
 <div class="container">
-{{/is_home}}
 	<div id="main" role="main">
         <div class="main-content">
 
