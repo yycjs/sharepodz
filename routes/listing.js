@@ -54,7 +54,7 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     listing.email = req.body.email;
     listing.startDate = req.body.startDate;
     listing.endDate = req.body.endDate;
-    listing.tags = req.body.tags.split();
+    listing.tags = req.body.tags;
     listing.images = [];
 
     listing.save(function(err, doc){
