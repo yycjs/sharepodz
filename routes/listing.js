@@ -1,5 +1,6 @@
 var formidable = require('formidable');
 var sys = require('sys');
+var geocoder = require('geocoder');
 
 app.get('/listing/new', requireAuthorization, function(req, res, next){
     res.render('listing/new');
@@ -35,7 +36,8 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     }
 
     var listing = new Listing();
-
+    var lat, lng, geocode_addr;
+    
     listing.owner = req.user.id;
     listing.title = req.body.title;
     listing.description = req.body.description;
@@ -44,7 +46,6 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     listing.address1 = req.body.address1;
     listing.address2 = req.body.address2;
     listing.postalCode = req.body.postalCode;
-    listing.location = [null, null]; //TODO: Get location from google geocoding response and store it as [lng, lat]
     listing.phone = req.body.phone;
     listing.website = req.body.website;
     listing.twitter = req.body.twitter;
@@ -53,6 +54,13 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     listing.endDate = req.body.endDate;
     listing.tags = req.body.tags.split();
     listing.images = [];
+    
+    geocode_addr = listing.address1 + ", " + listing.address2 + ", " + listing.city + ", " + listing.province;
+    geocoder.geocode(geocode_addr, function ( err, data ) {
+        lat = data.results[0].geometry.location.lat;
+        lng = data.results[0].geometry.location.lng;
+    });
+    listing.location = [lng, lat];
 
     listing.save(function(err, doc){
         if(err) next(new Error('DB Error: Cannot Save Listing'));
