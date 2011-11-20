@@ -1,5 +1,5 @@
 app.get('/', function (req, res) {
-	Listing.find({}, {}, {limit : 3}, function(err, listings) {
+	Listing.find({}, {}, {limit : 7}, function(err, listings) {
 		var latest = listings.pop();
 		res.render('index', {
 			locals: {
