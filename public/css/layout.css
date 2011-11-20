@@ -83,7 +83,7 @@ a.cta:visited {
 	height:70px;
 }
 .logo {
-	width:225px;
+	width:277px;
 	margin:40px 0 0 30px;
 } 
 .logo a {
@@ -95,6 +95,7 @@ a.cta:visited {
 	display:block;
 	text-align:right;
 	font-size:12px;
+	margin-top:-14px;
 }
 .yyc {
 	color:#00aeef;
