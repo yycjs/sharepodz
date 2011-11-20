@@ -131,7 +131,11 @@ app.get('/listing/results', getPopularTags, function(req, res, next) {
                 //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
             }
             res.render('listing/results', {
-                locals: {results: localListings, popularTags: req.popularTags}
+                locals: {
+                    results: localListings,
+                    popularTags: req.popularTags,
+                    defaultLocation: 'Calgary, Alberta, Canada' 
+                }
             });
         });
     });
