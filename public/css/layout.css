@@ -573,6 +573,13 @@ form .submit input {
 	display:inline;
 	margin-right:15px;
 }
+.login-options {
+	padding:20px;
+}
+.login-options  li {
+	display:inline;
+	margin-right:20px;
+}
 .arrow2 {
 	width:22px;
 	height:12px;
