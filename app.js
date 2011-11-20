@@ -27,9 +27,11 @@ ObjectId = Schema.ObjectId;
 
 require('./models/users.js');
 require('./models/listing.js');
+require('./models/tag.js');
 
 User = mongoose.model('User');
 Listing = mongoose.model('Listing');
+Tag = mongoose.model('Tag');
 
 // Configuration
 
