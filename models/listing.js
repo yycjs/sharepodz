@@ -2,6 +2,7 @@ var ListingSchema = new Schema({
 	owner: ObjectId,
 	description: {type: String},
 	title: {type: String},
+	about: { type : String },
 	location: [],
 	city: {type: String},
 	province: {type: String},
