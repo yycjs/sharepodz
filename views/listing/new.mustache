@@ -1,19 +1,129 @@
+<h1>Post your available space</h1>
 <form action="/listing/create" method="post">
-	The Name of Your Space: <input type="text" name="name"><br>
-	A Brief Description of Your Space (Used for searching): <input type="text" name="tagline"><br>
-	Fill In Some More Details About Your Space: <input type="textarea" name="description"><br>
-	City: <input type="text" name="city"><br>
-	Province: <input type="text" name="province"><br>
-	Address 1: <input type="text" name="address1"><br>
-	Address 2: <input type="text" name="address2"><br>
-	Postal Code: <input type="text" name="postalCode"><br>
-	Phone Number: <input type="phone" name="phone"><br>
-	Website: <input type="text" name="website"><br>
-	Twitter: <input type="text" name="twitter"><br>
-	Contact Email: <input type="email" name="email"><br>
-	Availability Start Date: <input type="date" name="startDate"><br>
-    Availability End Date: <input type="date" name="endDate"><br>
-	Tags: <input type="text" name="tags"><br>
-	
-	<input type="submit" value="Create">
+
+     <fieldset class="sep-bottom">
+        <div class="big input">
+           <label for="name">The Name of Your Space </label>
+           <input type="text" name="name" id="name">
+           <div class="clear"></div>
+        </div>
+        <div class="big input">
+           <label for="description">Describe Your Space in Detail </label>
+           <textarea name="description" id="description"></textarea>
+           <div class="clear"></div>
+        </div>
+        <div class="input">
+           <label for="tagline">Now the Short Version <span class="note">Which Will be Used for searching</span> </label>
+           <textarea name="tagline" id="tagline"></textarea>
+           <div class="clear"></div>
+       </div>
+    </fieldset>
+    <fieldset id="images" class="sep-bottom">
+        <legend>Images</legend>
+        <a class="cta rounded10 thickbox" href="/upload?TB_iframe=true&width=760&height=500">Add Images</a>
+        <div class="clear"></div>
+    </fieldset>
+    <fieldset id="address" class="sep-bottom">
+        <legend>Address</legend>
+        <div class="lines">
+            <div class="input">
+                <label for="">Line 1 </label>
+                <input type="text" name="address1" id="address1">
+                <div class="clear"></div>
+            </div>
+             <div class="input">
+                <label for="">Line 2 </label>
+                <input type="text" name="address2" id="address2">
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="grouped">
+            <div class="input">
+                <label for="">City </label>
+                <input type="text" name="city" id="city">
+            </div>
+            <div class="input">
+                <label for="">Province </label>
+                <input type="text" name="province" id="province">
+            </div>
+            <div class="input">
+                <label for="">Postal Code </label>
+                <input type="text" name="postalCode" id="postalCode">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="contact-info" class="sep-bottom">
+        <legend>Contact info</legend>
+         <div class="input">
+            <label for="">Contact Email </label>
+            <input type="email" name="email" id="email">
+            <div class="clear"></div>
+        </div>
+        <div class="grouped">
+            <div class="input">
+               <label for="">Phone Number </label>
+               <input type="phone" name="phone" id="phone">
+            </div>
+            <div class="input">
+               <label for="">Website </label>
+               <input type="text" name="website" id="website">
+            </div>
+            <div class="input">
+               <label for="">Twitter </label>
+               <input type="text" name="twitter" id="twitter">
+            </div>
+            <div class="clear"></div>
+        </div>
+    </fieldset>
+    <fieldset id="availability" class="sep-bottom">
+        <legend>Availability</legend>
+        <div class="grouped">
+            <div class="input">
+               <label for="">Start Date </label>
+               <input type="date" name="startDate" id="startDate">
+               <div class="clear"></div>
+           </div>
+            <div class="input">
+               <label for="">End Date </label>
+               <input type="date" name="endDate" id="endDate">
+               <div class="clear"></div>
+           </div>
+           <div class="input">
+              <label for="">Number of Podz </label>
+              <select name="spaces" id="spaces">
+                <option value="1" selected>1 Pod</option>
+                <option value="2">2 Podz</option>
+                <option value="3">3 Podz</option>
+                <option value="4">4 Podz</option>
+                <option value="5">5 Podz</option>
+                <option value="6">6 Podz</option>
+                <option value="7">7 Podz</option>
+                <option value="8">8 Podz</option>
+                <option value="9">9 Podz</option>
+                <option value="10">10+ Podz</option>
+              </select>
+              <div class="clear"></div>
+          </div>
+       </div>
+   </fieldset>
+   <fieldset class="sep-bottom">
+       <legend>Finally...</legend>
+       <div class="input">
+           <label for="">Tags <span class="note">Comma separated</span> </label>
+           <input type="text" name="tags" id="tags">
+           <div class="clear"></div>
+       </div>
+       <div class="input">
+          <label for="">Price </label>
+          <input type="text" name="price" id="price" value="Free">
+          <div class="clear"></div>
+      </div>
+   </fieldset>
+    <div class="input submit">
+       <input type="submit" value="Create and Publish your Space">
+       <div class="clear"></div>
+   </div>
 </form>
+<script src="/js/forms.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.css" type="text/css" media="screen" charset="utf-8">

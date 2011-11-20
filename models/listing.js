@@ -16,6 +16,8 @@ var ListingSchema = new Schema({
 	created: {type: Date, default: Date.now},
 	startDate: {type: Date, default: Date.now},
     endDate: {type: Date, default: Date.now},
+    price: {type: String, default: "Free"},
+    spaces: {type: Number, default: 1},
 	tags: [],
 	images: []
 });

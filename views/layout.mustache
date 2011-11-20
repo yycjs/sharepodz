@@ -28,19 +28,24 @@
 	<header id="top">
         <div class="logo">
             <a href="/">
-                <img src="/images/layout/logo.gif" alt="SharePodx"/>
+                <img src="/images/layout/logo.gif" alt="SharePodz"/>
                 <strong class="tagline">An Accelerator<span class="yyc">YCC</span> Project</strong>
             </a>
         </div>
         <ul id="secondary-nav">
             {{#loggedInUser}}<li class="rounded-b-left"><a href="/logout">Logout</a></li>{{/loggedInUser}}
             {{^loggedInUser}}<li class="rounded-b-left login"><a href="/auth/twitter">Login with Twitter</a></li>{{/loggedInUser}}
+            {{^loggedInUser}}<li class="login"><a href="/auth/facebook">Login with Facebook</a></li>{{/loggedInUser}}
             <li class="search rounded-b-right"><a class="thickbox" href="/listing/search?TB_iframe=true&width=760&height=500">Search</a></li>
         </ul>
+        {{#flash}}
+            <div class="errors">{{#error}}<span class="errors">{{.}}</span>{{/error}}</div>
+            <div class="info">{{#info}}<span class="info">{{.}}</span>{{/info}}</div>
+        {{/flash}}
         <ul id="menu">
-            <li><a href="#">podz</a></li>
-            <li><a href="#">host</a></li>
-            <li><a href="#">about</a></li>
+            <li><a href="/listing/browse">podz</a></li>
+            <li><a href="/listing/new">host</a></li>
+            <li><a href="/about">about</a></li>
         </ul>
 	</header>
 {{#is_home}}
@@ -62,17 +67,14 @@
     </ul>
     <div class="container">
         <h1>Sharepodz Helps Entrepreneurs find Shared Workspaces at Top Start-Ups Across Canada</h1>
-        <a class="cta rounded10" href="#">Find a Workspace!</a>
+        <a class="cta rounded10 thickbox" href="/listing/search?TB_iframe=true&width=760&height=500">Find a Workspace!</a>
     </div>
 </div>
 <div class="container">
 {{/is_home}}
 	<div id="main" role="main">
         <div class="main-content">
-            {{#flash}}
-                <div class="errors">{{#error}}<span class="errors">{{.}}</span>{{/error}}</div>
-                <div class="info">{{#info}}<span class="info">{{.}}</span>{{/info}}</div>
-            {{/flash}}
+
 {{{yield}}}
 	<footer>
 
@@ -84,6 +86,6 @@
     <script src="/js/thickbox-compressed.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="/css/thickbox.css">
     <!-- Slideshow -->
-    <script src="/js/home.js?23423123ass324" type="text/javascript"></script>
+    <script src="/js/home.js" type="text/javascript"></script>
 </body> 
 </html> 
