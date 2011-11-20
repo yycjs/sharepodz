@@ -1,6 +1,7 @@
 body {
 	border-top:#00aeef 9px solid;
 	font-family:"Trebuchet MS", "Helvetica", "Arial", sans-serif;
+	padding-bottom:70px;
 }
 a {
 	transition: all .5s linear;
@@ -295,7 +296,7 @@ a.cta:visited {
 	width:100%;
 	padding:0;
 }
-.submit input {
+#search .submit input {
 	font-size:30px;
 	padding:0;
 	text-align:center;
@@ -414,4 +415,84 @@ ul.tags li {
 	float:left;
 	width:127px;
 	margin:0 8px 7px 0;
+}
+
+
+form {
+	width:590px;
+}
+form .input {
+	padding:5px 0;
+/*	border-bottom:#ccc 1px solid;*/
+}
+form .big.input {
+	border-bottom:none;
+	margin-bottom:10px;
+}
+form .input label {
+	width:150px;
+	display:block;
+	float:left;
+}
+form .big.input label {
+	width:100%;
+}
+form .big.input input,
+form .big.input textarea {
+	width:580px;
+	font-size:20px;
+}
+form .big.input textarea {
+	height:200px;
+}
+form .input input,
+form .input textarea {
+	width:430px;
+}
+form .input textarea {
+	height:90px;
+}
+form .input .note {
+	display:block;
+	color:#666;
+	font-size:12px;
+}
+form fieldset {
+	padding:10px 0;
+	margin-bottom:20px;
+}
+form fieldset legend {
+	padding-top:10px;
+}
+form legend {
+	font-size:18px;
+}
+form .grouped {
+	width:443px;
+	margin-left:143px;
+}
+form .grouped div {
+	width:140px;
+	float:left;
+	margin-left:7px;
+}
+form .grouped div.pair {
+	width:210px;
+}
+form .grouped input,
+form .grouped label {
+	width:136px;
+}
+.sep-bottom {
+	border-bottom:#ccc 1px solid;
+	margin-bottom:3px;
+}
+form .submit  {
+	text-align:right;
+	width:100%;
+}
+form .submit input {
+	width:auto;
+	padding:5px;
+	margin-right:5px;
 }
