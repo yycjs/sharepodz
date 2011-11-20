@@ -1,45 +1,71 @@
 var formidable = require('formidable');
 var sys = require('sys');
 
-function requireAuthorization(req, res, next) {
-    if (!req.user) {
-        req.flash('error', 'You must be logged in to access this page');
-        res.redirect('/');
-        //next(new Error('You must be logged in to access this page'));
-    }
-    else
-        next();
-}
-
 app.get('/listing/new', requireAuthorization, function(req, res, next){
-	res.render('listing/new');
+    res.render('listing/new');
 });
 
 app.post('/listing/create', requireAuthorization, function(req, res, next){
-	var listing = new Listing(req.body);
-
-	listing.save(function(err, user_Saved){
-		if(err){
-			throw err;
-			console.log(err);
-		}else{
-			console.log('saved!');
-			res.redirect('/listing/'+listing.id);
-		};
-	});
-});
-
-function getPopularTags(req, res, next) {
-    Listing.getPopularTags(5, function(err, tags) {
-        var popTags = [];
-        for (var i = 0; i < tags.length; i++) {
-            popTags.push({tag:tags[i]});
-        }
-
-        req.popularTags = popTags;
-        next();
+    var errors = [];
+    req.onValidationError(function(msg) {
+        errors.push(msg);
     });
-}
+    
+    //Input Validation
+    req.assert(req.body.name, 'You gotta name your space!').notEmpty();
+    req.assert(req.body.tagline, 'You should provide a little search description').notEmpty();
+    req.assert(req.body.description, 'You need to provide a listing description').notEmpty();
+    req.assert(req.body.city, 'You need to provide a city').notEmpty();
+    req.assert(req.body.province, 'You need to provide a province').notEmpty();
+    req.assert(req.body.address1, 'You need to provide an address').notEmpty();
+    req.assert(req.body.postalCode, 'You need to provide an postal code').notEmpty(); //TODO: Validate postal code
+    req.assert(req.body.phone, 'You need to provide an postal code').notEmpty(); //TODO: Validate phone
+    
+    if (req.body.website != '')
+        req.assert(req.body.website, 'If your going to provide a website you need to provide a valid one').isUrl();
+        
+    if (req.body.twitter != '')
+        req.assert(req.body.twitter, 'If your going to provide a twitter handle you need to provide a valid one').is(/^@/);
+        
+    req.assert(req.body.email, 'You need to provide an email').isEmail();
+    req.assert(req.body.startDate, 'You can\'t have an start date before today').isAfter();
+    req.assert(req.body.endDate, 'You can\'t have an end date before today').isAfter();
+    
+    if (errors.length) {
+        res.send('There were problems: ' + errors.join(', '), 500);
+        return;
+    }
+
+    var listing = new Listing();
+
+    listing.owner = req.user.id;
+    listing.name = req.body.name;
+    listing.about = req.body.about;
+    listing.description = req.body.description;
+    listing.city = req.body.city;
+    listing.province = req.body.province;
+    listing.address1 = req.body.address1;
+    listing.address2 = req.body.address2;
+    listing.postalCode = req.body.postalCode;
+    listing.location = [null, null]; //TODO: Get location from google geocoding response and store it as [lng, lat]
+    listing.phone = req.body.phone;
+    listing.website = req.body.website;
+    listing.twitter = req.body.twitter;
+    listing.email = req.body.email;
+    listing.startDate = req.body.startDate;
+    listing.endDate = req.body.endDate;
+    listing.tags = req.body.tags.split();
+    listing.images = [];
+
+    listing.save(function(err, doc){
+        if(err) next(new Error('DB Error: Cannot Save Listing'));
+        else {
+            var now = new Date();
+            console.log(now + ' - Created listing' + doc);
+            res.redirect('/listing/' + doc);
+        };
+    });
+});
 
 app.get('/listing/search*', function(req, res, next) {
     res.render('listing/search', { layout: 'listing/search_layout'});
@@ -58,13 +84,11 @@ app.get('/listing/results', getPopularTags, function(req, res, next) {
 
 app.get('/listing/:id', function(req, res, next){
     Listing.findById(req.params.id, function(err, listing) {
-
 	    sys.inspect(listing, true);
 
 	    res.render('listing/show', {
    	        locals: {listing: listing, popularTags: req.popularTags}
 	    });
-
 	});
 });
 
