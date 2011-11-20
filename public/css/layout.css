@@ -8,6 +8,9 @@ a {
    -moz-transition: all .5s linear;
    -webkit-transition: all .5s linear;
 }
+h2 {
+	margin-bottom:15px;
+}
 .rounded-b-right {
 	-webkit-border-bottom-right-radius:10px;
 	-moz-border-radius-bottomright:10px;
@@ -43,16 +46,18 @@ a {
 	background: linear-gradient(top,  #ffffff 0%,#00aeef 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00aeef',GradientType=0 ); /* IE6-9 */
 }
+a.cta:visited {
+	color:#000;
+}
 .clear {
 	height:0;
 	clear:both;
 	padding:0;
 }
 .main-content {
-	padding-top:30px;
-	width:1000px;
+	padding:30px 0;
+	width:1020px;
 	margin:0 20px;
-	float:left;
 }
 .sidebar {
 	width:300px;
@@ -66,6 +71,12 @@ a {
 .col {
 	width:333px;
 	float:left;
+}
+.col.thin {
+	width:300px;
+}
+.col.wide {
+	width:420px;
 }
 #top {
 	position:relative;
@@ -297,3 +308,110 @@ a {
 	font-size:12px;
 	width:auto;
 }
+
+a.button {
+	display: block;
+	width: 190px;
+	height: 35px;
+	margin: 0 auto;
+	text-align: center;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #372DB8;
+	text-decoration: none;
+	line-height: 35px;
+	font-size: 120%;
+}
+
+.description h2 {
+	line-height: 60%;
+}
+
+.description small {
+	font-weight: bold;
+}
+
+.description {
+	background-color: #E5F7FD;
+	border-bottom: 5px solid black;
+	padding: 10px;
+	margin: 20px 0;
+}
+
+h3 {
+	text-transform: uppercase;
+	border-bottom: 3px #00AEEF solid;
+	width: 30%;
+}
+
+.details p {
+	margin-bottom: 10px;
+}
+
+.details p:last-child {
+	border-bottom: 4px solid black;
+	padding-bottom: 20px;
+}
+
+.map {
+	border: 1px solid #333333;
+	overflow: hidden;
+	width: 298px;
+}
+
+.page {
+	border-top: 7px black solid;
+	padding-top: 20px;
+}
+
+.page .right {
+	width: 640px;
+	float: left;
+	overflow: auto;
+	margin-left: 30px;
+}
+
+.page .left {
+	width: 300px;
+	float: left;
+	clear:right;
+	overflow: auto;
+}
+
+.map {
+	height:300px;
+    margin:0px;
+    width:300px;
+}
+
+ul.tags {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	overflow: auto;
+	margin-top: 20px;
+}
+
+ul.tags li {
+	padding: 4px 8px;
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	background-color: #FFAD1D;
+}
+
+.right h3 {
+	margin-top: 20px;
+}
+=======
+.popular ul {
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+.popular ul li {
+	float:left;
+	width:127px;
+	margin:0 8px 7px 0;
+}
+>>>>>>> 7a4ba39aad968f3bfb2d0e736a0c228bbf57f8fb

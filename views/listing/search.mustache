@@ -9,25 +9,7 @@
             </div>
         </div>
         <div class="filtering">
-            <section class="refine-result">
-                <h1>Narrow Search Results</h1>
-                <ul>
-                    <li><input type="checkbox" /> No kittens</li>
-                    <li><input type="checkbox" /> No puppies</li>
-                    <li><input type="checkbox" /> Free Beer</li>
-                    <li><input type="checkbox" /> Foosball Table</li>
-                    <li><input type="checkbox" /> Fax Machine</li>
-                    <li><input type="checkbox" /> Private Offices</li>
-                    <li class="range">
-                        Price?<br />
-                        <input type="range" name="some_name" value="" />
-                    </li>
-                    <li class="range">
-                        Other range<br />
-                        <input type="range" name="some_name" value="" />
-                    </li>
-                </ul>
-            </section>
+            {{>search_refine_result}}
             <div class="input submit">
                 <input type="submit" value="Search"></input>
             </div>

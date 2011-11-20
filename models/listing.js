@@ -2,6 +2,7 @@ var ListingSchema = new Schema({
 	owner: ObjectId,
 	description: {type: String},
 	title: {type: String},
+	about: { type : String },
 	location: [],
 	city: {type: String},
 	province: {type: String},
@@ -15,5 +16,9 @@ var ListingSchema = new Schema({
 	tags: [],
 	images: []
 });
+
+ListingSchema.statics.getPopularTags = function getPopularTags(max, cb) {
+    return this.distinct('tags').limit(max).run(cb);
+}
 
 mongoose.model('Listing', ListingSchema);
