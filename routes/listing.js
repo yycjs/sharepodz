@@ -11,25 +11,27 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
         errors.push(msg);
     });
     
+    
+    
     //Input Validation
-    req.assert(req.body.name, 'You gotta name your space!').notEmpty();
-    req.assert(req.body.tagline, 'You should provide a little search description').notEmpty();
-    req.assert(req.body.description, 'You need to provide a listing description').notEmpty();
-    req.assert(req.body.city, 'You need to provide a city').notEmpty();
-    req.assert(req.body.province, 'You need to provide a province').notEmpty();
-    req.assert(req.body.address1, 'You need to provide an address').notEmpty();
-    req.assert(req.body.postalCode, 'You need to provide an postal code').notEmpty(); //TODO: Validate postal code
-    req.assert(req.body.phone, 'You need to provide an postal code').notEmpty(); //TODO: Validate phone
+    req.assert('name', 'You gotta name your space!').notNull();
+    req.assert('tagline', 'You should provide a little search description').notNull();
+    req.assert('description', 'You need to provide a listing description').notNull();
+    req.assert('city', 'You need to provide a city').notNull();
+    req.assert('province', 'You need to provide a province').notNull();
+    req.assert('address1', 'You need to provide an address').notNull();
+    req.assert('postalCode', 'You need to provide an postal code').notNull(); //TODO: Validate postal code
+    req.assert('phone', 'You need to provide an postal code').notNull(); //TODO: Validate phone
     
     if (req.body.website != '')
-        req.assert(req.body.website, 'If your going to provide a website you need to provide a valid one').isUrl();
+        req.assert('website', 'If your going to provide a website you need to provide a valid one').isUrl();
         
     if (req.body.twitter != '')
-        req.assert(req.body.twitter, 'If your going to provide a twitter handle you need to provide a valid one').is(/^@/);
+        req.assert('twitter', 'If your going to provide a twitter handle you need to provide a valid one').is(/^@/);
         
-    req.assert(req.body.email, 'You need to provide an email').isEmail();
-    req.assert(req.body.startDate, 'You can\'t have an start date before today').isAfter();
-    req.assert(req.body.endDate, 'You can\'t have an end date before today').isAfter();
+    req.assert('email', 'You need to provide an email').isEmail();
+    req.assert('startDate', 'You can\'t have an start date before today').isAfter();
+    req.assert('endDate', 'You can\'t have an end date before today').isAfter();
     
     if (errors.length) {
         res.send('There were problems: ' + errors.join(', '), 500);
@@ -61,8 +63,8 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
         if(err) next(new Error('DB Error: Cannot Save Listing'));
         else {
             var now = new Date();
-            console.log(now + ' - Created listing' + doc);
-            res.redirect('/listing/' + doc);
+            console.log(now + ' - Created listing' + doc.id);
+            res.redirect('/listing/' + doc.id);
         };
     });
 });
