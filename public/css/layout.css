@@ -12,6 +12,14 @@ a {
 h2 {
 	margin-bottom:15px;
 }
+p {
+	margin-bottom:25px;
+	line-height:18px;
+	font-size:16px;
+}
+h1 {
+	margin-bottom:20px;
+}
 .rounded-b-right {
 	-webkit-border-bottom-right-radius:10px;
 	-moz-border-radius-bottomright:10px;
@@ -236,6 +244,7 @@ a.cta:visited {
 	font-weight:normal;
 	text-align:left;
 	text-indent:35px;
+	margin:0;
 }
 #promo.home h1 {
 	text-indent:0;
@@ -592,4 +601,39 @@ form .submit input {
 	height:12px;
 	margin-top:-12px;
 	background:transparent url('../images/layout/bubble-triangle.png') no-repeat 0 0;
+}
+#about .pullquote {
+	margin:40px 40px 40px 0;
+}
+.intro {
+	width:610px;
+}
+.pullquote {
+	float:right;
+	font-size:20px;
+	font-weight:bold;
+	font-family:"Arial Black",sans-serif;
+	width:300px;
+	line-height:22px;
+	text-align:right;
+}
+.pullquote span {
+	color:#00aeef;
+}
+.pullquote.centered {
+	width:auto;
+	text-align:center;
+}
+.hackathon {
+	margin-top:60px;
+}
+.hackathon img.team {
+	float:left;
+	width:450px;
+	margin:200px 40px 0 0;
+}
+.hackathon ul li {
+	list-style:none;
+	text-indent:30px;
+	margin-bottom:4px;
 }
