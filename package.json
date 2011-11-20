@@ -9,7 +9,7 @@
   , "private": "true"
   , "homepage": ""
   , "main": "./app.js"
-  , "engines": {"node": ">=0.4.9"}
+  , "engines": {"node": "0.4.9"}
   , "repository": {
         "type": "git"
         , "url": "git@github.com:AcceleratorYYC/Open-Desk.git"
