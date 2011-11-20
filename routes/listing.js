@@ -38,6 +38,14 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
         return;
     }
 
+    var tag_ids = req.body.tags;
+    req.body.tags = Tag.find({_id:{$in: tag_ids}}, function (err) {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+    });
+
     var listing = new Listing();
     var lat, lng, geocode_addr;
     

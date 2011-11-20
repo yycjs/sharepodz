@@ -15,13 +15,14 @@
 
 	<link rel="stylesheet" href="/css/style.css">
 	<link rel="stylesheet" href="/css/layout.css">
+	<link rel="stylesheet" href="/css/tags.css">
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="/scripts/gvmaps.min-0.9.3.js"></script>
     <script type="text/javascript" src="/scripts/galleria/galleria-1.2.5.min.js"></script>
-
-
-	<!--<script src="/js/libs/modernizr-2.0.6.min.js"></script>-->
+    <script type="text/javascript" src="/js/tagit.js"></script>
 </head>
 <body>
 <div class="container">
@@ -34,8 +35,7 @@
         </div>
         <ul id="secondary-nav">
             {{#loggedInUser}}<li class="rounded-b-left"><a href="/logout">Logout</a></li>{{/loggedInUser}}
-            {{^loggedInUser}}<li class="rounded-b-left login"><a href="/auth/twitter">Login with Twitter</a></li>{{/loggedInUser}}
-            {{^loggedInUser}}<li class="login"><a href="/auth/facebook">Login with Facebook</a></li>{{/loggedInUser}}
+            {{^loggedInUser}}<li class="rounded-b-left login"><a href="/login">Login</a></li>{{/loggedInUser}}
             <li class="search rounded-b-right"><a class="thickbox" href="/listing/search?TB_iframe=true&width=760&height=500">Search</a></li>
         </ul>
         {{#flash}}
@@ -48,9 +48,9 @@
             <li><a href="/about">about</a></li>
         </ul>
 	</header>
-{{#is_home}}
 </div>
-<div id="promo">
+<div id="promo" class="{{#is_home}} home{{/is_home}}{{^is_home}} bubble{{/is_home}}">
+{{#is_home}}
     <ul>
         <li>
             <img src="../images/layout/slide01.jpg" width="526" height="361" alt="">
@@ -65,13 +65,15 @@
             <div class="overlay"></div>
         </li>
     </ul>
+{{/is_home}}
     <div class="container">
-        <h1>Sharepodz Helps Entrepreneurs find Shared Workspaces at Top Start-Ups Across Canada</h1>
+        <h1{{#is_home}} class="bubble"{{/is_home}}>Sharepodz Helps Entrepreneurs find Shared Workspaces at Top Start-Ups Across Canada</h1>
+        {{#is_home}}
         <a class="cta rounded10 thickbox" href="/listing/search?TB_iframe=true&width=760&height=500">Find a Workspace!</a>
+        {{/is_home}}
     </div>
 </div>
 <div class="container">
-{{/is_home}}
 	<div id="main" role="main">
         <div class="main-content">
 
