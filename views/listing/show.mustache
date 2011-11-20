@@ -1,0 +1,57 @@
+{{#listing}}
+<h1>{{title}}</h1>
+<div id="left">
+	<div id="gallery">
+        {{#images}}
+        	<img src="{{.}}" width="610" height="420" />
+        {{/images}}
+    </div>
+	<h2>Description</h2>
+	<p>{{description}}</p>
+	<br />
+	<h2>Tags</h2>
+	<ul id="tags">
+		{{#tags}}
+			<li>{{.}}</li>
+		{{/tags}}
+	</ul>
+</div>
+
+<div id="right">
+	<div class="map" data-query="{{address1}} {{city}}, {{province}}" data-zoom="14" data-control="large" data-type="map" data-placeholder="{{title}}"></div>
+	<!--<h2>Location</h2>-->
+	<br />
+	<address>
+		{{address1}}<br />
+		{{#address2}}
+			{{address2}}<br />
+		{{/address2}}
+		{{city}}, {{province}}
+	</address>
+	<hr />
+	<!--
+	<p>City: {{city}}</p>
+	<p>Province: {{province}}</p>
+	<p>Address 1: {{address1}}</p>
+	<p>Address 2: {{address2}}</p>
+	<p>Postal Code: {{postalCode}}</p>
+	-->
+	<p>Website: <a href="{{website}}">{{website}}</a></p>
+	<p>Twitter: <a href="http://twitter.com/{{twitter}}">@{{twitter}}</a></p>
+	<p>Email: <a href="mailto:{{email}}">{{email}}</a></p>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.map').gvmap().auto();
+        Galleria.loadTheme('/scripts/galleria/themes/classic/galleria.classic.min.js');
+        $("#gallery").galleria({
+            width: 610,
+            height: 500
+        });
+	});
+
+
+</script>
+
+
+{{/listing}}
