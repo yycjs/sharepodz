@@ -274,3 +274,39 @@ table { border-collapse: collapse; border-spacing: 0; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3{ page-break-after: avoid; }
 }
+
+
+#left {
+	width: 650px;
+	float: left;
+	overflow: auto;
+}
+
+#right {
+	width: 300px;
+	float: left;
+	clear:right;
+	overflow: auto;
+}
+
+.map {
+	height:300px;
+    margin:0px;
+    width:300px;
+}
+
+ul#tags {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	overflow: auto;
+}
+
+ul#tags li {
+	padding: 4px 8px;
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	background-color: #ccc;
+	border-radius: 5px;
+}
