@@ -39,7 +39,12 @@ app.configure(function(){
   app.dynamicHelpers({messages: require('express-messages')});
   //app.set("view options", { layout: false })
   app.register(".mustache", require('stache'));
-  app.use(express.bodyParser());
+  //app.use(express.bodyParser());
+  app.use(express.bodyParser({
+      uploadDir: __dirname + '/public/images/uploaded',
+      keepExtensions: true,
+      type: 'multipart'
+      }));
   app.use(expressValidator);
   app.use(express.cookieParser());
   app.use(express.session({secret: "98489fads3ewqrcs"}));
