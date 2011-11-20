@@ -20,8 +20,8 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     req.assert('city', 'You need to provide a city').notNull();
     req.assert('province', 'You need to provide a province').notNull();
     req.assert('address1', 'You need to provide an address').notNull();
-    req.assert('postalCode', 'You need to provide an postal code').notNull(); //TODO: Validate postal code
-    req.assert('phone', 'You need to provide an postal code').notNull(); //TODO: Validate phone
+    req.assert('postalCode', 'You need to provide an postal code').is(/^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z] \d[A-Z]\d$/);
+    req.assert('phone', 'You need to provide a phone number').is(/^(?:\+?1[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
     
     if (req.body.website != '')
         req.assert('website', 'If your going to provide a website you need to provide a valid one').isUrl();
@@ -48,12 +48,12 @@ app.post('/listing/create', requireAuthorization, function(req, res, next){
     listing.province = req.body.province;
     listing.address1 = req.body.address1;
     listing.address2 = req.body.address2;
-    listing.postalCode = req.body.postalCode;
+    listing.postalCode = req.body.postalCode; //.replace(/^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z] \d[A-Z]\d$/, "");
     listing.location = [null, null]; //TODO: Get location from google geocoding response and store it as [lng, lat]
-    listing.phone = req.body.phone;
+    listing.phone = req.body.phone.replace(/\D/, "");
     listing.website = req.body.website;
     listing.twitter = req.body.twitter;
-    listing.email = req.body.email;
+    listing.email = req.body.email.toLowerCase();
     listing.startDate = req.body.startDate;
     listing.endDate = req.body.endDate;
     listing.tags = req.body.tags;
