@@ -1,10 +1,10 @@
 <h1>Post your available space</h1>
-<form action="/listing/create" method="post">
+<form action="/listing/create" enctype="multipart/form-data" method="post">
 <fieldset class="sep-bottom">
     <div class="big input">
         <label for="name">The Name of Your Space </label>
         <input type="text" name="name" id="name">
-
+        
         <div class="clear"></div>
     </div>
     <div class="big input">
@@ -22,7 +22,7 @@
 </fieldset>
 <fieldset id="images" class="sep-bottom">
     <legend>Images</legend>
-    <a class="cta rounded10 thickbox" href="/upload?TB_iframe=true width=760 height=500">Add Images</a>
+    <input type="file" id="image" name="image" multiple="multiple">
 
     <div class="clear"></div>
 </fieldset>

@@ -1,6 +1,7 @@
-var formidable = require('formidable');
-var sys = require('sys');
-var geocoder = require('geocoder');
+var formidable = require('formidable')
+    , sys = require('sys')
+    , _ = require('underscore')
+    , geocoder = require('geocoder');
 
 app.get('/listing/new', requireAuthorization, function(req, res, next) {
     res.render('listing/new');
@@ -11,7 +12,6 @@ app.post('/listing/create', requireAuthorization, function(req, res, next) {
     req.onValidationError(function(msg) {
         errors.push(msg);
     });
-
 
     //Input Validation
     req.assert('name', 'You gotta name your space!').notNull();
@@ -65,7 +65,16 @@ app.post('/listing/create', requireAuthorization, function(req, res, next) {
     listing.startDate = req.body.startDate;
     listing.endDate = req.body.endDate;
     listing.tags = req.body.tags;
-    listing.images = [];
+    if (req.body.spaces == "10+")
+        listing.spaces = 10;
+    else
+        listing.spaces = parseInt(req.body.spaces);
+    if (_.isArray(req.body.image)) {
+        for (var i in req.body.image) {
+            var imagePath = req.body.image[i].path.split('/public');
+            listing.images.push(imagePath[1]);
+        }
+    }
     listing.price = req.body.price;
 
     geocode_addr = listing.address1 + ", " + listing.address2 + ", " + listing.city + ", " + listing.province;
@@ -88,9 +97,9 @@ app.post('/listing/create', requireAuthorization, function(req, res, next) {
 });
 
 app.get('/listing/search*', function(req, res, next) {
-    res.render('listing/search', { 
+    res.render('listing/search', {
         layout: 'listing/search_layout',
-        defaultLocation: 'Calgary, Alberta, Canada' 
+        defaultLocation: 'Calgary, Alberta, Canada'
     });
 });
 
@@ -101,7 +110,7 @@ app.post('/listing/search.json', function(req, res, next) {
         Listing.find({ location: { $near: [loc.lng,loc.lat]} }, function(err, localListings) {
             if (err)
                 res.json({ error: err });
-            else 
+            else
                 res.json({ center:loc, listings:localListings });
         });
     });
@@ -144,21 +153,24 @@ app.get('/listing/browse', getPopularTags, function(req, res, next) {
 
 app.get('/listing/:id', function(req, res, next) {
     Listing.findById(req.params.id, function(err, listing) {
-        sys.inspect(listing, true);
-        var tags = new Array();
-        listing.lat = listing.location[1];
-        listing.lng = listing.location[0];
 
-        Tag.find({_id : {$in : listing.tags}}, function(err, foundTags) {
-            if (!err) {
-                listing.tagobjects = foundTags;
-            }
-            res.render('listing/show', {
-                locals: {listing: listing, popularTags: req.popularTags}
+        if (err) next(new Error('DB Error'));
+        if (listing) {
+            sys.inspect(listing, true);
+
+            listing.lat = listing.location[1];
+            listing.lng = listing.location[0];
+
+            Tag.find({_id : {$in : listing.tags}}, function(err, foundTags) {
+                if (!err) {
+                    listing.tagobjects = foundTags;
+                }
+                res.render('listing/show', {
+                    locals: {listing: listing, popularTags: req.popularTags}
+                });
             });
-        });
-
-
+        }
+        else next(new Error('Could not find listing'));
     });
 });
 

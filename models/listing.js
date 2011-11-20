@@ -8,7 +8,7 @@ var ListingSchema = new Schema({
 	address1: {type: String},
 	address2: {type: String},
 	postalCode: {type: String},
-	location: {type: Array, index: '2d' },
+	location: {type: Array, index: "2d"},
 	phone: {type: String},
 	website: {type: String},
 	twitter: {type: String},
