@@ -13,5 +13,5 @@ module.exports = {
     }
 };
 
-module.exports.connection = "mongodb://localhost/opendesk";
-//module.exports.connection = "mongodb://opendesk:beourguest@dbh85.mongolab.com:27857/opendesk?auto_reconnect";
+//module.exports.connection = "mongodb://localhost/opendesk";
+module.exports.connection = "mongodb://opendesk:beourguest@dbh85.mongolab.com:27857/opendesk?auto_reconnect";

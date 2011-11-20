@@ -5,11 +5,14 @@
 
 var express = require('express'),
     everyauth = require('everyauth'),
+    expressValidator = require('express-validator'),
     config = require('./config'),
     util = require('util'),
     Promise = everyauth.Promise,
 	sys = require('sys'),
 	fs = require('fs');
+
+require('./route-middleware');
 
 everyauth.debug = true;
 
@@ -33,9 +36,11 @@ Listing = mongoose.model('Listing');
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'mustache');
+  app.dynamicHelpers({messages: require('express-messages')});
   //app.set("view options", { layout: false })
   app.register(".mustache", require('stache'));
   app.use(express.bodyParser());
+  app.use(expressValidator);
   app.use(express.cookieParser());
   app.use(express.session({secret: "98489fads3ewqrcs"}));
   app.use(express.methodOverride());
