@@ -297,3 +297,98 @@ a {
 	font-size:12px;
 	width:auto;
 }
+
+a.button {
+	display: block;
+	width: 190px;
+	height: 35px;
+	margin: 0 auto;
+	text-align: center;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #372DB8;
+	text-decoration: none;
+	line-height: 35px;
+	font-size: 120%;
+}
+
+.description h2 {
+	line-height: 60%;
+}
+
+.description small {
+	font-weight: bold;
+}
+
+.description {
+	background-color: #E5F7FD;
+	border-bottom: 5px solid black;
+	padding: 10px;
+	margin: 20px 0;
+}
+
+h3 {
+	text-transform: uppercase;
+	border-bottom: 3px #00AEEF solid;
+	width: 30%;
+}
+
+.details p {
+	margin-bottom: 10px;
+}
+
+.details p:last-child {
+	border-bottom: 4px solid black;
+	padding-bottom: 20px;
+}
+
+.map {
+	border: 1px solid #333333;
+	overflow: hidden;
+	width: 298px;
+}
+
+.page {
+	border-top: 7px black solid;
+	padding-top: 20px;
+}
+
+.page .right {
+	width: 640px;
+	float: left;
+	overflow: auto;
+	margin-left: 30px;
+}
+
+.page .left {
+	width: 300px;
+	float: left;
+	clear:right;
+	overflow: auto;
+}
+
+.map {
+	height:300px;
+    margin:0px;
+    width:300px;
+}
+
+ul.tags {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	overflow: auto;
+	margin-top: 20px;
+}
+
+ul.tags li {
+	padding: 4px 8px;
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	background-color: #FFAD1D;
+}
+
+.right h3 {
+	margin-top: 20px;
+}
