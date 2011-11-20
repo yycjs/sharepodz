@@ -37,9 +37,13 @@
             {{^loggedInUser}}<li class="rounded-b-left login"><a href="/auth/twitter">Login with Twitter</a></li>{{/loggedInUser}}
             <li class="search rounded-b-right"><a class="thickbox" href="/listing/search?TB_iframe=true&width=760&height=500">Search</a></li>
         </ul>
+        {{#flash}}
+            <div class="errors">{{#error}}<span class="errors">{{.}}</span>{{/error}}</div>
+            <div class="info">{{#info}}<span class="info">{{.}}</span>{{/info}}</div>
+        {{/flash}}
         <ul id="menu">
             <li><a href="#">podz</a></li>
-            <li><a href="#">host</a></li>
+            <li><a href="/listing/new">host</a></li>
             <li><a href="#">about</a></li>
         </ul>
 	</header>
@@ -69,10 +73,7 @@
 {{/is_home}}
 	<div id="main" role="main">
         <div class="main-content">
-            {{#flash}}
-                <div class="errors">{{#error}}<span class="errors">{{.}}</span>{{/error}}</div>
-                <div class="info">{{#info}}<span class="info">{{.}}</span>{{/info}}</div>
-            {{/flash}}
+
 {{{yield}}}
 	<footer>
 
