@@ -18,13 +18,16 @@
 	<!--<script src="/js/libs/modernizr-2.0.6.min.js"></script>-->
 </head>
 <body>
-
-<div id="container">
+<div class="container">
 	<header id="top">
-        <img src="/img/logo.gif" alt="Logo" class="logo" />
+        <div class="logo">
+            <a href="/">
+                <img src="/images/layout/logo.gif" alt="SharePodx"/>
+                <strong class="tagline">An Accelerator<span class="yyc">YCC</span> Project</strong>
+            </a>
+        </div>
         <ul id="secondary-nav">
-            <li class="rounded-b-left"><a href="">Sign Up</a></li>
-            <li class="login"><a href="">Login</a></li>
+            <li class="rounded-b-left login"><a href="">Login</a></li>
             <li class="search rounded-b-right"><a class="thickbox" href="/listing/search">Search</a></li>
         </ul>
         <ul id="menu">
@@ -33,6 +36,30 @@
             <li><a href="#">about</a></li>
         </ul>
 	</header>
+{{#is_home}}
+</div>
+<div id="promo">
+    <ul>
+        <li>
+            <img src="../images/layout/img/slide01.jpg" width="526" height="361" alt="">
+            <div class="overlay"></div>
+        </li>
+        <li>
+            <img src="../images/layout/img/slide01.jpg" width="526" height="361" alt="">
+            <div class="overlay"></div>
+        </li>
+        <li>
+            <img src="../images/layout/img/slide01.jpg" width="526" height="361" alt="">
+            <div class="overlay"></div>
+        </li>
+    </ul>
+    <div class="container">
+        <h1>Sharepodz Helps Entrepreneurs find Shared Workspaces at Top Start-Ups Across Canada</h1>
+        <a class="cta rounded10" href="#">Find a Workspace!</a>
+    </div>
+</div>
+<div class="container">
+{{/is_home}}
 	<div id="main" role="main">
         <div class="main-content">
 {{{yield}}}

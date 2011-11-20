@@ -2,7 +2,8 @@ app.get('/', function (req, res) {
   res.render("index", {
    
     locals: {
-      title: "Test"
+      title: "Test",
+      is_home: true
     }
   });
 });
