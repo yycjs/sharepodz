@@ -2,11 +2,11 @@
     <h1>Results?</h1>
 {{#results}}
     <article class="listing preview">
-        <aside>{{#mainImage}}<img src="{{mainImage}}" width="143" height="95" alt="" />{{/mainImage}}</aside>
+        <aside>{{#mainImage}}<a href="/listing/{{_id}}"><img src="{{mainImage}}" width="143" height="95" alt="" /></a>{{/mainImage}}</aside>
         <header>
             <h1><a href="/listing/{{_id}}">{{name}}</a></h1>
         </header>
-        <p>{{city}}, {{province}}</p>
+        <p class="address">{{city}}, {{province}}</p>
     </article>
 {{/results}}
 </div>

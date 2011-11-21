@@ -101,9 +101,15 @@ a.cta:visited {
 .col.wide {
 	width:420px;
 }
+.col.main-content-wide {
+	width:710px;
+}
 #top {
 	position:relative;
 	height:70px;
+}
+#main {
+	padding:40px 0 0 30px;
 }
 .logo {
 	width:277px;
@@ -182,14 +188,23 @@ a.cta:visited {
 	border-bottom-color:#ff00ae;
 }
 .listing.preview {
-	width:340px;
-	padding:0 10px 30px;
+	width:330px;
+	padding:30px 10px 0 10px;
 	float:left;
 	font-size:12px;
+	height:150px;
 }
 .listing.preview h1 {
 	font-size:14px;
-	margin:0 0 10px 0;
+	margin:0;
+}
+.listing aside {
+	height:95px;
+	width:143px;
+	margin-right:10px;
+	background:transparent url('../images/layout/no_photo_small.jpg') repeat 0 0;
+	border:#ddd 2px solid;
+	float:left;
 }
 .listing.preview img {
 	float:left;
@@ -197,7 +212,21 @@ a.cta:visited {
 	height:95px;
 }
 .listing.preview p {
+	float:left;
 	margin:0;
+}
+.listing h1 a {
+	color:#000;
+	text-decoration:none;
+	font-size:18px;
+}
+.listing h1 a:hover,
+.listing h1 a:focus {
+	color:#00aeef;
+}
+.listing .address {
+	margin:0;
+	font-size:13px;
 }
 .refine-result ul {
 	list-style:none;
