@@ -42,7 +42,6 @@ app.configure(function(){
   app.dynamicHelpers({messages: require('express-messages')});
   //app.set("view options", { layout: false })
   app.register(".mustache", require('stache'));
-  //app.use(express.bodyParser());
   app.use(express.bodyParser({
       uploadDir: __dirname + '/public/images/uploaded',
       keepExtensions: true,
@@ -58,6 +57,7 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
+  app.use(express.logger({format: 'dev'}));
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
 

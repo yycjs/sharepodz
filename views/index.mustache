@@ -1,9 +1,9 @@
 <!-- <h1>{{title}}</h1> -->
 
 <div class="col thin">
-    <h2>Latest podz</h2>
+    <h2>Latest pod</h2>
     {{#latest}}
-        <img src="http://placekitten.com/g/278/205" alt="" />
+        <img class="latest" src="{{mainImage}}" alt="" />
     {{/latest}}
 </div>
 <div class="col wide">
@@ -12,7 +12,7 @@
         <ul>
             {{#results}}
                 <li class="listing-{{id}}">
-                    <img src="http://placekitten.com/g/126/97" alt="{{title}}" title="{{title}}" />
+                    <img class="popular" src="{{mainImage}}" alt="{{title}}" title="{{title}}" />
                 </li>
             {{/results}}
         </ul>

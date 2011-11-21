@@ -8,6 +8,7 @@ app.get('/listing/new', requireAuthorization, function(req, res, next) {
 });
 
 app.post('/listing/create', requireAuthorization, function(req, res, next) {
+    console.log(req.body.tags);
     var errors = [];
     req.onValidationError(function(msg) {
         errors.push(msg);
@@ -34,17 +35,20 @@ app.post('/listing/create', requireAuthorization, function(req, res, next) {
     req.assert('endDate', 'You can\'t have an end date before today').isAfter();
 
     if (errors.length) {
-        res.send('There were problems: ' + errors.join(', '), 500);
+        for (var i in errors) {
+            req.flash('error', errors[i]);
+        }
+        res.redirect('back');
         return;
     }
 
     // req.body.tag_ids are strings so we need to convert them to ObjectId's
-    var tagObjectIds = new Array();
-    for (index in req.body.tag_ids) {
-        var objectId = req.body.tag_ids[index];
-        tagObjectIds.push(mongoose.mongo.BSONPure.ObjectID.fromString(objectId));
-    }
-    req.body.tags = tagObjectIds;
+    // var tagObjectIds = new Array();
+    // for (index in req.body.tag_ids) {
+    //     var objectId = req.body.tag_ids[index];
+    //     tagObjectIds.push(mongoose.mongo.BSONPure.ObjectID.fromString(objectId));
+    // }
+    // req.body.tags = tagObjectIds;
 
     var listing = new Listing();
     var lat, lng, geocode_addr;
@@ -75,6 +79,9 @@ app.post('/listing/create', requireAuthorization, function(req, res, next) {
             listing.images.push(imagePath[1]);
         }
     }
+    else
+        listing.images.push('/images/layout/no_photo.jpg');
+        
     listing.price = req.body.price;
 
     geocode_addr = listing.address1 + ", " + listing.address2 + ", " + listing.city + ", " + listing.province;
@@ -83,16 +90,41 @@ app.post('/listing/create', requireAuthorization, function(req, res, next) {
         lng = data.results[0].geometry.location.lng;
 
         listing.location = [lng, lat];
-
-        listing.save(function(err, doc) {
-            if (err) next(new Error('DB Error: Cannot Save Listing'));
-            else {
-                var now = new Date();
-                console.log(now + ' - Created listing ' + doc.id);
-                res.redirect('/listing/' + doc.id);
+        
+        for (var i in listing.tags) {
+            
+            //TODO: Should use promises
+            if (listing.tags[i] == _.last(listing.tags)) {
+                listing.save(function(err, doc) {
+                    if (err) next(new Error('DB Error: Cannot Save Listing ' + err));
+                    else {
+                        var now = new Date();
+                        console.log(now + ' - Created listing ' + doc.id);
+                        res.redirect('/listing/' + doc.id);
+                        return
+                    }
+                });
             }
-            ;
-        });
+            else {
+                Tag.findOne({name: listing.tags[i]}, function(err, doc){
+                    if (err) next(new Error(err));
+                    else if (doc) {
+                        doc.count += 1;
+                        doc.save(function(err){
+                            if (err) next(new Error('DB Error: Cannot Save Tag ' + err));
+                        });
+                    }    
+                    else {
+                        var tag = new Tag();
+                        tag.name = listing.tags[i];
+                        
+                        tag.save(function(err){
+                            if (err) next(new Error('DB Error: Cannot Save Tag ' + err));
+                        });
+                    }    
+                });
+            }
+        }
     });
 });
 
@@ -125,10 +157,7 @@ app.get('/listing/results', getPopularTags, function(req, res, next) {
         var loc = data.results[0].geometry.location;
         Listing.find({ location: {$near:[loc.lng,loc.lat]}}, function(err, localListings) {
             for (var i = 0; i < localListings.length; i++) {
-                if (localListings[i].images.length)
-                    localListings[i].mainImage = localListings[i].images[0];
-                // else
-                //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
+                localListings[i].mainImage = localListings[i].images[0];
             }
             res.render('listing/results', {
                 locals: {
@@ -144,10 +173,7 @@ app.get('/listing/results', getPopularTags, function(req, res, next) {
 app.get('/listing/browse', getPopularTags, function(req, res, next) {
     Listing.find({}).limit(10).sort('created', -1).exec(function(err, listings) {
         for (var i = 0; i < listings.length; i++) {
-            if (listings[i].images.length)
-                listings[i].mainImage = listings[i].images[0];
-            // else
-            //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
+            listings[i].mainImage = listings[i].images[0];
         }
         res.render('listing/results', {
             locals: {results: listings, popularTags: req.popularTags}
