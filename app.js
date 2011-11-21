@@ -17,6 +17,7 @@ require('./route-middleware');
 everyauth.debug = true;
 
 app = module.exports = express.createServer();
+var port = process.argv.length == 3 ? process.argv[2] : 3000;
 
 // Mongoose Dependencies
 mongoose = require('mongoose');
@@ -81,7 +82,7 @@ fs.readdir( './routes', function( err, files ) {
 
 	mongooseAuth.helpExpress(app);
 
-	app.listen(3000);
+	app.listen(port);
 	console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 });

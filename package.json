@@ -10,6 +10,7 @@
   , "homepage": ""
   , "main": "./server.js"
   , "engines": {"node": "0.4.9"}
+  , "scripts": { "start": "./deploy.sh" }
   , "repository": {
         "type": "git"
         , "url": "git@github.com:AcceleratorYYC/Open-Desk.git"
