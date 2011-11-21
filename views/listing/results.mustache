@@ -1,17 +1,23 @@
-<div class="main-content">
+<div class="col main-content-wide">
+    <h1>Results?</h1>
 {{#results}}
     <article class="listing preview">
-        <aside>{{#mainImage}}<img src="{{mainImage}}" alt="" />{{/mainImage}}</aside>
+        <aside>{{#mainImage}}<a href="/listing/{{_id}}"><img src="{{mainImage}}" width="143" height="95" alt="" /></a>{{/mainImage}}</aside>
         <header>
             <h1><a href="/listing/{{_id}}">{{name}}</a></h1>
         </header>
-        <p>{{city}}, {{province}}</p>
+        <p class="address">{{city}}, {{province}}</p>
     </article>
 {{/results}}
 </div>
 <div class="sidebar">
     <div class="related">
-        <iframe width="290" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps/ms?hl=en&amp;vpsrc=0&amp;ctz=420&amp;ie=UTF8&amp;msa=0&amp;msid=210520800783896597537.0004b20ffb41cef015931&amp;t=m&amp;ll=51.041934,-114.03609&amp;spn=0.004722,0.006223&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="http://maps.google.com/maps/ms?hl=en&amp;vpsrc=0&amp;ctz=420&amp;ie=UTF8&amp;msa=0&amp;msid=210520800783896597537.0004b20ffb41cef015931&amp;t=m&amp;ll=51.041934,-114.03609&amp;spn=0.004722,0.006223&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Untitled</a> in a larger map</small>
+        <div class="map" data-query="{{defaultLocation}}"></div>
         {{>search_refine_result}}
     </div>
 </div>
+<script type="text/javascript">
+$(document.ready(function() {
+    $('div.map').gvmap().auto();
+});
+</script>

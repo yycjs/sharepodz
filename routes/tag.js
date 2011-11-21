@@ -67,3 +67,19 @@ app.post('/tag/remove', function(req, res, next) {
         }
     })
 });
+
+app.get('/tag/autocomplete', function(req, res, next) {
+
+    Tag.find({count : {'$gt': 1}}, function(err, tags){
+        if (err) {
+            console.log(err);
+            throw err;
+        } else if (tags) {
+            var tagnames = new Array();
+            for (var i = 0; i < tags.length; i++) {
+                tagnames.push(tags[i].name);
+            }
+            res.json(tagnames);
+        }
+    });
+});
