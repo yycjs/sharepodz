@@ -16,7 +16,7 @@ UserSchema.plugin(mongooseAuth, {
     }
     , facebook: {
         everyauth: {
-            myHostname: 'http://localhost:3000'
+            myHostname: conf.hostname
             , appId: conf.fb.appId
             , appSecret: conf.fb.appSecret
             , redirectPath: '/'
@@ -24,7 +24,7 @@ UserSchema.plugin(mongooseAuth, {
     }
     , twitter: {
         everyauth: {
-            myHostname: 'http://localhost:3000'
+            myHostname: conf.hostname
             , consumerKey: conf.twit.consumerKey
             , consumerSecret: conf.twit.consumerSecret
             , redirectPath: '/'
@@ -32,7 +32,7 @@ UserSchema.plugin(mongooseAuth, {
     }
     , github: {
         everyauth: {
-            myHostname: 'http://localhost:3000'
+            myHostname: conf.hostname
             , appId: conf.github.appId
             , appSecret: conf.github.appSecret
             , redirectPath: '/'

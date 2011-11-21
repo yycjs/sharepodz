@@ -15,3 +15,6 @@ module.exports = {
 
 //module.exports.connection = "mongodb://localhost/opendesk";
 module.exports.connection = "mongodb://opendesk:beourguest@dbh85.mongolab.com:27857/opendesk?auto_reconnect";
+
+//module.exports.hostname = "http://sharepodz.com";
+module.exports.hostname = "http://localhost:3000";
