@@ -38,10 +38,6 @@
             {{^loggedInUser}}<li class="rounded-b-left login"><a href="/login">Login</a></li>{{/loggedInUser}}
             <li class="search rounded-b-right"><a class="thickbox" href="/listing/search?TB_iframe=true&width=760&height=500">Search</a></li>
         </ul>
-        {{#flash}}
-            <div class="errors">{{#error}}<span class="errors">{{.}}</span>{{/error}}</div>
-            <div class="info">{{#info}}<span class="info">{{.}}</span>{{/info}}</div>
-        {{/flash}}
         <ul id="menu">
             <li><a href="/listing/browse">podz</a></li>
             <li><a href="/listing/new">host</a></li>
@@ -79,6 +75,12 @@
 </div>
 <div class="container">
 	<div id="main" role="main">
+	    {{#flash}}
+            <div class="flash">
+            <div class="errors">{{#error}}<span class="errors">{{.}}</span>{{/error}}</div>
+            <div class="info">{{#info}}<span class="info">{{.}}</span>{{/info}}</div>
+            </div>
+        {{/flash}}
         {{{yield}}}
     	<footer>
     	</footer>

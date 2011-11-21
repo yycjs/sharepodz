@@ -13,7 +13,7 @@ getPopularTags = function (req, res, next) {
 requireAuthorization = function (req, res, next) {
     if (!req.user) {
         req.flash('error', 'You must be logged in to access this page');
-        res.redirect('/');
+        res.redirect('/login');
         //next(new Error('You must be logged in to access this page'));
     }
     else

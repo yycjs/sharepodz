@@ -300,6 +300,7 @@ a.cta:visited {
 }
 .bubble {
 	background:#000;
+	color:#fff;
 	border-bottom:#00aeef 1px solid;
 	padding:0 10px;
 	text-align:center;
@@ -325,7 +326,16 @@ a.cta:visited {
 	margin-top:-12px;
 	background:transparent url('../images/layout/bubble-triangle.png') no-repeat 0 0;
 }
-
+.flash {
+	margin:-20px 0 20px 0;
+	padding:10px;
+}
+.flash .errors {
+	color:#800000;
+}
+.flash .info {
+	color:#0d48a1;
+}
 #promo .cta {
 	font-size: 17px;
 	position: absolute;
