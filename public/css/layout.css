@@ -78,6 +78,10 @@ a.cta:visited {
 	width:1020px;
 	margin:0 20px;
 }
+.result-list {
+    width:720px;
+    float:left;
+}
 .sidebar {
 	width:300px;
 	float:left;
@@ -178,7 +182,7 @@ a.cta:visited {
 	border-bottom-color:#ff00ae;
 }
 .listing.preview {
-	width:350px;
+	width:340px;
 	padding:0 10px 30px;
 	float:left;
 	font-size:12px;
@@ -452,6 +456,9 @@ h3 {
 	height:300px;
     margin:0px;
     width:520px;
+}
+.sidebar .map {
+    width:298px;
 }
 
 ul.tags {
