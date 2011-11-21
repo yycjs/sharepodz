@@ -1,7 +1,8 @@
-<div class="result-list">
+<div class="col main-content-wide">
+    <h1>Results?</h1>
 {{#results}}
     <article class="listing preview">
-        <aside>{{#mainImage}}<img src="{{mainImage}}" alt="" />{{/mainImage}}</aside>
+        <aside>{{#mainImage}}<img src="{{mainImage}}" width="143" height="95" alt="" />{{/mainImage}}</aside>
         <header>
             <h1><a href="/listing/{{_id}}">{{name}}</a></h1>
         </header>
@@ -19,3 +20,4 @@
 $(document.ready(function() {
     $('div.map').gvmap().auto();
 });
+</script>

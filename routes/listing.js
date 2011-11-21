@@ -149,7 +149,7 @@ app.get('/listing/browse', getPopularTags, function(req, res, next) {
             // else
             //     listings[i].mainImage = pathToPlaceHolder; //TODO: Add placeholder image
         }
-        res.render('listing/browse', {
+        res.render('listing/results', {
             locals: {results: listings, popularTags: req.popularTags}
         });
     });
