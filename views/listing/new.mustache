@@ -167,41 +167,5 @@ $(document).ready(function() {
 		},
 		minLength: 1
     });
-    
-    // var tagsSelect = ;
-    // $.get("/tag/autocomplete", function(data) {
-    //     if (data) {
-    //         $('#tags-list').tagit({select : true, triggerKeys: ['enter', 'comma', 'tab', 'space'], tagSource: data});
-    //     } else {
-    //         $('#tags-list').tagit({select : true, triggerKeys: ['enter', 'comma', 'tab', 'space']});
-    //     }
-    // });
-
-
-    // $("#tags-list").bind("DOMNodeRemoved", function(objEvent) {
-    //     var tagText = $(objEvent.target).text();
-    //     tagText = tagText.slice(0, tagText.length - 1);
-    //     console.log('removed tag: ' + tagText);
-    //     $('tag' + $(objEvent.target).attr('id')).remove();
-    //     $.post("/tag/remove", { id: $(objEvent.target).attr('id') },
-    //             function(data) {
-    //                 console.log(data);
-    // 
-    //             });
-    // });
-    // 
-    // $("#tags-list").bind("DOMNodeInserted", function(objEvent) {
-    //     var tagText = $(objEvent.target).text();
-    //     tagText = tagText.slice(0, tagText.length - 1);
-    //     console.log('added tag: ' + tagText);
-    // 
-    //     $.post("/tag/create", { name: tagText },
-    //             function(data) {
-    //                 console.log("Tag created / found: " + data.id);
-    //                 $(objEvent.target).attr('id', data.id);
-    //                 //var newOption = $("<option selected='selected'></option>");
-    //                 tagsSelect.append('<option selected="selected" id="tag-' + data.id + '" value="' + data.id + '">' + data.id + '</option>');
-    //             });
-    // });
 });
 </script>
