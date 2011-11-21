@@ -25,6 +25,7 @@
 	$(function() {
 		top_limit = $('#promo').offset().top + $('#promo').height() + 40;
 		$related = $('.related');
+		if ($related.length == 0) return;
 		enableScrollingMap();
 		scrollMapToCurrent();
 	});
