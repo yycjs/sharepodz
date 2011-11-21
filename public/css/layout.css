@@ -250,12 +250,24 @@ a.cta:visited {
 	text-indent:0;
 	color:#fff;
 	position:absolute;
-	bottom:40px;
+	bottom:30px;
 	left:180px;
 	z-index:2000;
-	width:370px;
+	width:354px;
 	font-size:18px;
 	background:rgba(0,0,0,.7);
+}
+#promo.home .bubble.cta a {
+	display:inline-block;
+	padding:5px 0;
+	color:#00AEEF;
+}
+#promo.home .bubble.cta a:hover,
+#promo.home .bubble.cta a:focus {
+	color:#fff;
+}
+#promo.home .bubble.cta {
+	font-size:19px;
 }
 .bubble {
 	background:#000;
@@ -267,11 +279,30 @@ a.cta:visited {
 	border-top:#00aeef 1px solid;
 	border-bottom:none;
 }
+.bubble a {
+	color:#fff;
+	text-decoration:none;
+}
+.bubble .speech {
+	width:22px;
+	height:12px;
+	margin:0 0 -12px -15px;
+	background:transparent url('../images/layout/bubble-speech.png') no-repeat 0 0;
+	
+}
+.bubble .arrow2 {
+	width:22px;
+	height:12px;
+	margin-top:-12px;
+	background:transparent url('../images/layout/bubble-triangle.png') no-repeat 0 0;
+}
+
 #promo .cta {
-	font-size:17px;
-	position:absolute;
-	bottom:40px;
-	right:200px;
+	font-size: 17px;
+	position: absolute;
+	bottom: 77px;
+	left: 541px;
+	z-index: 10000;
 }
 #promo ul {
 	height:361px;
@@ -595,12 +626,6 @@ form .submit input {
 .login-options  li {
 	display:inline;
 	margin-right:20px;
-}
-.arrow2 {
-	width:22px;
-	height:12px;
-	margin-top:-12px;
-	background:transparent url('../images/layout/bubble-triangle.png') no-repeat 0 0;
 }
 #about .pullquote {
 	margin:40px 40px 40px 0;
