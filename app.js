@@ -4,11 +4,11 @@
  */
 
 var express = require('express'),
-    everyauth = require('everyauth'),
-    expressValidator = require('express-validator'),
-    config = require('./config'),
-    util = require('util'),
-    Promise = everyauth.Promise,
+  everyauth = require('everyauth'),
+  expressValidator = require('express-validator'),
+  config = require('./config'),
+  util = require('util'),
+  Promise = everyauth.Promise,
 	sys = require('sys'),
 	fs = require('fs');
 
