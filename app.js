@@ -4,11 +4,11 @@
  */
 
 var express = require('express'),
-    everyauth = require('everyauth'),
-    expressValidator = require('express-validator'),
-    config = require('./config'),
-    util = require('util'),
-    Promise = everyauth.Promise,
+  everyauth = require('everyauth'),
+  expressValidator = require('express-validator'),
+  config = require('./config'),
+  util = require('util'),
+  Promise = everyauth.Promise,
 	sys = require('sys'),
 	fs = require('fs');
 
@@ -28,11 +28,13 @@ ObjectId = Schema.ObjectId;
 
 require('./models/users.js');
 require('./models/listing.js');
-require('./models/tag.js');
+require('./models/vibe.js');
+require('./models/amenity.js');
 
 User = mongoose.model('User');
 Listing = mongoose.model('Listing');
-Tag = mongoose.model('Tag');
+Vibe = mongoose.model('Vibe');
+Amenity = mongoose.model('Amenity');
 
 // Configuration
 
