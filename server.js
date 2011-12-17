@@ -17,7 +17,6 @@ require('./route-middleware');
 everyauth.debug = true;
 
 app = module.exports = express.createServer();
-var port = process.argv.length == 3 ? process.argv[2] : 3000;
 
 // Mongoose Dependencies
 mongoose = require('mongoose');
@@ -28,11 +27,9 @@ ObjectId = Schema.ObjectId;
 
 require('./models/users.js');
 require('./models/listing.js');
-require('./models/tag.js');
 
 User = mongoose.model('User');
 Listing = mongoose.model('Listing');
-Tag = mongoose.model('Tag');
 
 // Configuration
 
@@ -42,11 +39,7 @@ app.configure(function(){
   app.dynamicHelpers({messages: require('express-messages')});
   //app.set("view options", { layout: false })
   app.register(".mustache", require('stache'));
-  app.use(express.bodyParser({
-      uploadDir: __dirname + '/public/images/uploaded',
-      keepExtensions: true,
-      type: 'multipart'
-      }));
+  app.use(express.bodyParser());
   app.use(expressValidator);
   app.use(express.cookieParser());
   app.use(express.session({secret: "98489fads3ewqrcs"}));
@@ -57,7 +50,6 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
-  app.use(express.logger({format: 'dev'}));
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
 
@@ -82,7 +74,7 @@ fs.readdir( './routes', function( err, files ) {
 
 	mongooseAuth.helpExpress(app);
 
-	app.listen(port);
+	app.listen(80);
 	console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 });
