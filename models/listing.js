@@ -20,12 +20,17 @@ var ListingSchema = new Schema({
     spaces: {type: Number, default: 1},
     vibe: {type: String},
     squatters: [{type: String}],
-	tags: [{type: String}],
+	vibe: [{type: String}],
+	amenities: [{type: String}],
 	images: []
 });
 
-ListingSchema.statics.getPopularTags = function getPopularTags(max, cb) {
-    return this.distinct('tags').limit(max).run(cb);
+ListingSchema.statics.getPopularAmmenities = function getPopularAmmenities(max, cb) {
+    return this.distinct('amenities').limit(max).run(cb);
+}
+
+ListingSchema.statics.getPopularVibes = function getPopularVibes(max, cb) {
+    return this.distinct('vibe').limit(max).run(cb);
 }
 
 mongoose.model('Listing', ListingSchema);

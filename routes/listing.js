@@ -8,7 +8,6 @@ app.get('/listing/new', requireAuthorization, function(req, res, next) {
 });
 
 app.post('/listing/create', requireAuthorization, function(req, res, next) {
-    console.log(req.body.tags);
     var errors = [];
     req.onValidationError(function(msg) {
         errors.push(msg);
@@ -42,14 +41,6 @@ app.post('/listing/create', requireAuthorization, function(req, res, next) {
         return;
     }
 
-    // req.body.tag_ids are strings so we need to convert them to ObjectId's
-    // var tagObjectIds = new Array();
-    // for (index in req.body.tag_ids) {
-    //     var objectId = req.body.tag_ids[index];
-    //     tagObjectIds.push(mongoose.mongo.BSONPure.ObjectID.fromString(objectId));
-    // }
-    // req.body.tags = tagObjectIds;
-
     var listing = new Listing();
     var lat, lng, geocode_addr;
 
@@ -68,11 +59,14 @@ app.post('/listing/create', requireAuthorization, function(req, res, next) {
     listing.email = req.body.email.toLowerCase();
     listing.startDate = req.body.startDate;
     listing.endDate = req.body.endDate;
-    listing.tags = req.body.tags;
+    listing.vibe = req.body.vibe;
+    listing.amenities = req.body.amenities;
     if (req.body.spaces == "10+")
         listing.spaces = 10;
     else
         listing.spaces = parseInt(req.body.spaces);
+    
+    // TODO: Fix this.
     if (_.isArray(req.body.image)) {
         for (var i in req.body.image) {
             var imagePath = req.body.image[i].path.split('/public');
@@ -91,92 +85,68 @@ app.post('/listing/create', requireAuthorization, function(req, res, next) {
 
         listing.location = [lng, lat];
         
-        for (var i in listing.tags) {
-            
-            //TODO: Should use promises
-            if (listing.tags[i] == _.last(listing.tags)) {
-                listing.save(function(err, doc) {
-                    if (err) next(new Error('DB Error: Cannot Save Listing ' + err));
-                    else {
-                        var now = new Date();
-                        console.log(now + ' - Created listing ' + doc.id);
-                        res.redirect('/listing/' + doc.id);
-                        return
-                    }
-                });
-            }
-            else {
-                Tag.findOne({name: listing.tags[i]}, function(err, doc){
-                    if (err) next(new Error(err));
-                    else if (doc) {
-                        doc.count += 1;
-                        doc.save(function(err){
-                            if (err) next(new Error('DB Error: Cannot Save Tag ' + err));
-                        });
-                    }    
-                    else {
-                        var tag = new Tag();
-                        tag.name = listing.tags[i];
-                        
-                        tag.save(function(err){
-                            if (err) next(new Error('DB Error: Cannot Save Tag ' + err));
-                        });
-                    }    
-                });
-            }
-        }
-    });
-});
 
-app.get('/listing/search*', function(req, res, next) {
-    res.render('listing/search', {
-        layout: 'listing/search_layout',
-        defaultLocation: 'Calgary, Alberta, Canada'
-    });
-});
-
-app.post('/listing/search.json', function(req, res, next) {
-    geocoder.geocode(req.body.loc, function(err, data) {
-        var loc = data.results[0].geometry.location;
-
-        Listing.find({ location: { $near: [loc.lng,loc.lat]} }, function(err, localListings) {
-            if (err)
-                res.json({ error: err });
-            else
-                res.json({ center:loc, listings:localListings });
-        });
-    });
-});
-
-app.get('/listing/results', getPopularTags, function(req, res, next) {
-    geocoder.geocode(req.query.loc, function(err, data) {
-        if (err) {
-            next(err);
-            return;
-        }
-        var loc = data.results[0].geometry.location;
-        Listing.find({ location: {$near:[loc.lng,loc.lat]}}, function(err, localListings) {
-            for (var i = 0; i < localListings.length; i++) {
-                localListings[i].mainImage = localListings[i].images[0];
-            }
-            res.render('listing/results', {
-                locals: {
-                    results: localListings,
-                    popularTags: req.popularTags,
-                    defaultLocation: 'Calgary, Alberta, Canada' 
-                }
+        // Save vibe tags to their collection for future use or update their count
+        for (var i in listing.vibe) {
+            Vibe.findOne({name: listing.vibe[i]}, function(err, doc){
+                if (err) next(new Error(err));
+                else if (doc) {
+                    doc.count += 1;
+                    doc.save(function(err){
+                        if (err) next(new Error('DB Error: Cannot Save Vibe Tag ' + err));
+                    });
+                }    
+                else {
+                    var vibe = new Vibe();
+                    vibe.name = listing.vibe[i];
+                    
+                    vibe.save(function(err){
+                        if (err) next(new Error('DB Error: Cannot Save Vibe Tag ' + err));
+                    });
+                }    
             });
+        }
+
+        // Save amenities tags to their collection for future use or update their count
+        for (var i in listing.amenities) {
+            Amenity.findOne({name: listing.amenities[i]}, function(err, doc){
+                if (err) next(new Error(err));
+                else if (doc) {
+                    doc.count += 1;
+                    doc.save(function(err){
+                        if (err) next(new Error('DB Error: Cannot Save Amenity Tag ' + err));
+                    });
+                }    
+                else {
+                    var amenity = new Amenity();
+                    amenity.name = listing.amenities[i];
+                    
+                    amenity.save(function(err){
+                        if (err) next(new Error('DB Error: Cannot Save Amenity Tag ' + err));
+                    });
+                }    
+            });
+        }
+
+        listing.save(function(err, doc) {
+            if (err) next(new Error('DB Error: Cannot Save Listing ' + err));
+            else {
+                var now = new Date();
+                console.log(now + ' - Created listing ' + doc.id);
+                res.redirect('/listing/' + doc.id);
+                return
+            }
         });
     });
 });
 
-app.get('/listing/browse', getPopularTags, function(req, res, next) {
+app.get('/listing/browse', getPopularAmmenities, function(req, res, next) {
     Listing.find({}).limit(10).sort('created', -1).exec(function(err, listings) {
         for (var i = 0; i < listings.length; i++) {
             listings[i].mainImage = listings[i].images[0];
         }
         res.render('listing/results', {
-            locals: {results: listings, popularTags: req.popularTags}
+            locals: {results: listings, popularAmmenities: req.popularAmmenities}
         });
     });
 });
@@ -191,13 +161,8 @@ app.get('/listing/:id', function(req, res, next) {
             listing.lat = listing.location[1];
             listing.lng = listing.location[0];
 
-            Tag.find({_id : {$in : listing.tags}}, function(err, foundTags) {
-                if (!err) {
-                    listing.tagobjects = foundTags;
-                }
-                res.render('listing/show', {
-                    locals: {listing: listing, popularTags: req.popularTags}
-                });
+            res.render('listing/show', {
+                locals: {listing: listing, popularAmmenities: req.popularAmmenities}
             });
         }
         else next(new Error('Could not find listing'));

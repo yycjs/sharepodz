@@ -1,39 +1,85 @@
 	<div id="search">
-        <div class="search">
-            <div class="input text search">
-                <label for="">City, Address...</label>
-                <input class="box rounded5" type="text" value="{{defaultLocation}}" />
+        <form action="/listings/search" enctype="multipart/form-data" method="post">
+            <div class="search">
+                <div class="input text search">
+                    <label for="">Vibe <span class="note"></span> </label>
+                    <ul id="vibe" id="vibe" name="vibe" class="tagit"></ul>
+
+                    <div class="clear"></div>
+                </div>
+                <div class="input text search">
+                    <label for="">Amenities <span class="note"></span> </label>
+                    <ul id="amenities" id="amenities" name="amenities" class="tagit"></ul>
+
+                    <div class="clear"></div>
+                </div>
+                <div class="input text search">
+                    <label for="">City, Address...</label>
+                    <input class="box rounded5" id="address" name="address" type="text" value="{{defaultLocation}}" />
+                </div>
+                <div class="map" data-query="{{defaultLocation}}"></div>
             </div>
-            <div class="map" data-query="{{defaultLocation}}"></div>
-            <a href="#" id="search_results_link">View results</a>
-        </div>
-        <div class="filtering">
-            {{>search_refine_result}}
-            <div class="input submit">
-                <input type="submit" value="Search"></input>
+            <div class="filtering">
+                {{>search_refine_result}}
+                <div class="input submit">
+                    <input type="submit" value="Search"></input>
+                </div>
             </div>
-        </div>
-        <div id="map_links" style="display:none"></div>
-	</div>
+            <div id="map_links" style="display:none"></div>
+        </form>
+    </div>
+        
     <script type="text/javascript">
         $(document).ready(function() {
+            $('#amenities').tagit({
+                select : true, 
+                triggerKeys: ['enter', 'comma', 'tab', 'space'], 
+                tagSource: function( request, response ) {
+                    $.ajax({
+                        url: '/amenity/autocomplete.json',
+                        dataType: "json",
+                        data: {
+                            limit: 10,
+                            contains: request.term
+                        },
+                        success: function( data ) {
+                            response( $.map( data, function( item ) {
+                                return {
+                                    label: item.name,
+                                    value: item.name
+                                }
+                            }));
+                        }
+                    });
+                },
+                minLength: 1
+            });
+            $('#vibe').tagit({
+                select : true, 
+                triggerKeys: ['enter', 'comma', 'tab', 'space'], 
+                tagSource: function( request, response ) {
+                    $.ajax({
+                        url: '/vibe/autocomplete.json',
+                        dataType: "json",
+                        data: {
+                            limit: 10,
+                            contains: request.term
+                        },
+                        success: function( data ) {
+                            response( $.map( data, function( item ) {
+                                return {
+                                    label: item.name,
+                                    value: item.name
+                                }
+                            }));
+                        }
+                    });
+                },
+                minLength: 1
+            });
+
             var $map = $('div.map').gvmap();
             $map.auto();
-            $('#search div.filtering input[type="submit"]').click(function() {
-                $.post('/listing/search', {loc:$('#search div.search input').val()}, function(data, textStatus) {
-                    $map.latLng(data.center.lat, data.center.lng);
-                    var lnks = $('#map_links').empty();
-                    for (var i = 0; i < data.listings.length; i++) {
-                        var loc = data.listings[i];
-                        lnks.append('<a href="#" data-query="' +  + '" data-placeholder="' + loc.name + '">' + loc.name + '</a>');
-                    }
-                    $map.links('#map_links a');
-                });
-            });
-            $('#search_results_link').click(function(e) {
-                e.preventDefault();
-                window.parent.location = '/listing/results?loc=' + $('#search div.search input').val();
-            });
             $('div.map').gvmap().auto();
         });
     </script>

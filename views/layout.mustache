@@ -36,7 +36,7 @@
         <ul id="secondary-nav">
             {{#loggedInUser}}<li class="rounded-b-left"><a href="/logout">Logout</a></li>{{/loggedInUser}}
             {{^loggedInUser}}<li class="rounded-b-left login"><a href="/login">Login</a></li>{{/loggedInUser}}
-            <li class="search rounded-b-right"><a class="thickbox" href="/listing/search?TB_iframe=true&width=760&height=500">Search</a></li>
+            <li class="search rounded-b-right"><a class="thickbox" href="/search?TB_iframe=true&width=760&height=500">Search</a></li>
         </ul>
         <ul id="menu">
             <li><a href="/listing/browse">podz</a></li>
@@ -66,7 +66,7 @@
         <h1{{#is_home}} class="bubble"{{/is_home}}>Sharepodz Helps Entrepreneurs find Shared Workspaces at Top Start-Ups Across Canada</h1>
         {{#is_home}}
         <div class="cta bubble">
-            <a class="thickbox" href="/listing/search?TB_iframe=true&width=760&height=500">Find a Workspace!</a>
+            <a class="thickbox" href="/search?TB_iframe=true&width=760&height=500">Find a Workspace!</a>
             <div class="speech"></div>
         </div>
         
