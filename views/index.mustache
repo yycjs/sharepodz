@@ -2,8 +2,9 @@
 
 <div class="col thin">
     <h2>Latest pod</h2>
+    <ul>
     {{#latest}}
-        <img class="latest" src="{{mainImage}}" alt="" />
+        <li>{{title}}</li>
     {{/latest}}
 </div>
 <div class="col wide">
@@ -11,9 +12,7 @@
         <h2>Popular podz</h2>
         <ul>
             {{#results}}
-                <li class="listing-{{id}}">
-                    <img class="popular" src="{{mainImage}}" alt="{{title}}" title="{{title}}" />
-                </li>
+                <li class="listing-{{id}}">{{title}}</li>
             {{/results}}
         </ul>
     </div>
