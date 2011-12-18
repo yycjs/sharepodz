@@ -1,6 +1,8 @@
 (function($) {
 	var top_limit;
 	var $related;
+	// TODO commented out because strange scrolling behaviour causes UI problems
+	/*
 	function _moveMap(top) {
 		if (top <= top_limit) {
 			top = 0;
@@ -9,6 +11,7 @@
 		}
 	    $related.css('top', top + "px")
 	}
+	*/
 	function enableScrollingMap() {
 		var relatedHeight = $related.offset().top + $related.height();
 		if ($(window).height() < relatedHeight) return;
@@ -18,9 +21,11 @@
 	}      
 	function scrollMapToCurrent() {
 		var $listings = $('.listing');
+		/*
 		$listings.hover(function() {
 			_moveMap($(this).offset().top-30);
 		})
+		*/
 	}
 	$(function() {
 		top_limit = $('#promo').offset().top + $('#promo').height() + 40;
