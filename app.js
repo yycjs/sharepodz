@@ -37,7 +37,7 @@ Vibe = mongoose.model('Vibe');
 Amenity = mongoose.model('Amenity');
 Tag = mongoose.model( 'Tag' );
 
-app.models. = require( './models' );
+app.models = require( './models' );
 app.models.initialize( { app: app } );
 
 app.controllers = require( './controllers' );
