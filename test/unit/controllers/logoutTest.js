@@ -11,7 +11,7 @@ describe( 'sharpodz.test.unit.controllers.logout', function() {
 	describe('index', function() {
 		it( 'should call req.logout and redirect to /', function( done ) {
 			logoutController.index(mockRequest, mockResponse);
-			mockRequest.logout.called.withNoArgument();
+			mockRequest.logout.called.withNoArguments();
 			mockResponse.redirect.called.withArguments('/');
 			done();
 		} );
