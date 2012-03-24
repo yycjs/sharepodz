@@ -1,34 +1,33 @@
 {
-	"name": "SharePodz"
-  , "description": "A Place for People to Hang Their Hat"	
-  , "version": "0.0.1"
-  , "author": { 
-        "name": "AcceleratorYYC",
-        "email": "<directors@acceleratoryyc.com>"
-    }
-  , "private": "true"
-  , "homepage": ""
-  , "main": "./server.js"
-  , "engines": {"node": "0.4.9"}
-  , "scripts": { "start": "./deploy.sh" }
-  , "repository": {
-        "type": "git"
-        , "url": "git@github.com:AcceleratorYYC/Open-Desk.git"
-	}
-    , "dependencies": {
-        "express": ">=2.3.11"
-        , "stache": ">=0.0.3"
-    	, "mongoose": ">=2.3.9"
-    	, "mongoose-auth": ">=0.0.1"
-    	, "mongoose-types": ">=1.0.3"
-        , "mongoose-auth": ">=0.0.1"
-    	, "express-messages": ">=0.0.1"
-    	, "express-validator": ">=0.1.1"
-    	, "juice": ">=0.0.5"
-    	, "nodemailer": ">=0.2.3"
-    	, "everyauth": ">=0.2.0"
-    	, "underscore": ">=1.2.1"
-    	, "formidable": ">=1.0.7"
-    	, "geocoder": ">=0.0.5"
-    }
+  "name": "SharePodz", "description": "A Place for People to Hang Their Hat", "version": "0.0.1", "author": {
+  "name": "AcceleratorYYC",
+  "email": "<directors@acceleratoryyc.com>"
+},"private": "true", "homepage": "", "main": "./server.js", "engines": {
+  "node": "~0.6"
+}, "scripts": {
+  "start": "./deploy.sh"
+}, "repository": {
+  "type": "git",
+  "url": "git@github.com:AcceleratorYYC/Open-Desk.git"
+}, "dependencies": {
+  "express": ">=2.3.11",
+  "stache": ">=0.0.3",
+  "mongoose": ">=2.3.9",
+  "mongoose-auth": ">=0.0.1",
+  "mongoose-types": ">=1.0.3",
+  "mongoose-auth": ">=0.0.1",
+  "express-messages": ">=0.0.1",
+  "express-validator": ">=0.1.1",
+  "juice": ">=0.0.5",
+  "nodemailer": ">=0.2.3",
+  "everyauth": ">=0.2.0",
+  "underscore": ">=1.2.1",
+  "formidable": ">=1.0.7",
+  "geocoder": ">=0.0.5"
+},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "stub.js": "*"
+  }
 }
