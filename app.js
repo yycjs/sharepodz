@@ -25,12 +25,16 @@ mongoose.connect( config.connection );
 Schema = mongoose.Schema;
 ObjectId = Schema.ObjectId;
 
-require( './models/users.js' );
-require( './models/listing.js' );
+require('./models/users.js');
+//require('./models/listing.js');
+require('./models/vibe.js');
+require('./models/amenity.js');
 require( './models/tag.js' );
 
-User = mongoose.model( 'User' );
-//Listing = mongoose.model( 'Listing' );
+User = mongoose.model('User');
+//Listing = mongoose.model('Listing');
+Vibe = mongoose.model('Vibe');
+Amenity = mongoose.model('Amenity');
 Tag = mongoose.model( 'Tag' );
 
 app.models. = require( './models' );

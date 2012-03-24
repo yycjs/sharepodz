@@ -13,7 +13,7 @@ describe( 'sharpodz.test.unit.controllers.home', function() {
     it( 'should call the database and grab the first 7 listings', function( done ) {
       homeController.initialize( mockApp );
 
-      
+
 
       done();
     } );

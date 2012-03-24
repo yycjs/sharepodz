@@ -39,9 +39,19 @@ module.exports = (function () {
       images: []
     } );
 
+    schema.statics.getPopularAmmenities = getPopularAmmenities;
     schema.statics.getPopularTags = getPopularTags;
+    schema.statics.getPopularVibes = getPopularVibes;
 
     model = app.mongoose.model( name, schema );
+  }
+
+  function getPopularAmmenities(max, cb) {
+      return this.distinct('amenities').limit(max).run(cb);
+  }
+
+  function getPopularVibes(max, cb) {
+      return this.distinct('vibe').limit(max).run(cb);
   }
 
   function getPopularTags ( max, cb ) {
@@ -58,7 +68,6 @@ module.exports = (function () {
     getSchema: function () {
       return schema;
     },
-    getPopularTags: getPopularTags,
     initialize: initialize
   }
 }());

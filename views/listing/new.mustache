@@ -118,54 +118,27 @@
 <fieldset class="sep-bottom">
     <legend>Finally...</legend>
     <div class="input">
-        <label for="">Tags <span class="note"></span> </label>
-        <ul id="tags" name="tags" class="tagit"></ul>
+        <label for="">Vibe <span class="note"></span> </label>
+        <ul id="vibe" name="vibe" class="tagit"></ul>
+
+        <div class="clear"></div>
+    </div>
+    <div class="input">
+        <label for="">Amenities <span class="note"></span> </label>
+        <ul id="amenities" name="amenities" class="tagit"></ul>
 
         <div class="clear"></div>
     </div>
     <div class="input">
         <label for="">Price </label>
-        <input type="text" name="price" id="price" value="Free">
+        <input type="text" name="price" id="price" value="It's Free Baby!">
 
         <div class="clear"></div>
     </div>
 </fieldset>
 <div class="input submit">
-    <input type="submit" value="Create and Publish your Space">
-
-    <div class="clear"></div>
+    <button type="submit">Create and Publish your Space</button>
 </div>
+<div class="clear"></div>
 </form>
-<script src="/js/forms.js" type="text/javascript" charset="utf-8"></script>
-<script src="/js/jquery/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.css" type="text/css" media="screen" charset="utf-8">
 
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-    $('#tags').tagit({
-        select : true, 
-        triggerKeys: ['enter', 'comma', 'tab', 'space'], 
-        tagSource: function( request, response ) {
-			$.ajax({
-				url: '/tag/autocomplete.json',
-				dataType: "json",
-				data: {
-					limit: 10,
-					contains: request.term
-				},
-				success: function( data ) {
-					response( $.map( data, function( item ) {
-						return {
-							label: item.name,
-							value: item.name
-						}
-					}));
-				}
-			});
-		},
-		minLength: 1
-    });
-});
-</script>
