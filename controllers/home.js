@@ -1,8 +1,9 @@
 module.exports = ( function () {
+  var app
   var Listing;
 
   function initialize ( options ){
-    var app = options.app;
+    app = options.app;
     Listing = app.models.listing.getModel();
   }
 
